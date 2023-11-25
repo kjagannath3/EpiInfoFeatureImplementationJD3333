@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/blue"/>
+    <Button
+        android:id="@+id/button_statcalc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="StatCalc"
+        android:layout_marginTop="100dp" />
+
+    <Button
+        android:id="@+id/button_collect_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Collect Data"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/button_analyse_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Analyse Data"
+        android:layout_marginTop="50dp" />
+
+</LinearLayout>
