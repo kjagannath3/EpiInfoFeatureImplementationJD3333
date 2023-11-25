@@ -1,5 +1,6 @@
 package com.example.epiinfofeatureimplementation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -49,7 +50,8 @@ class MainActivity : ComponentActivity() {
         imageViewLogo.setImageResource(R.drawable.epiinfo)
 
         buttonCollectData.setOnClickListener {
-            // Handle Collect Data button click
+            val intent = Intent(this, CollectData::class.java)
+            startActivity(intent)
         }
 
         buttonAnalyseData.setOnClickListener {
