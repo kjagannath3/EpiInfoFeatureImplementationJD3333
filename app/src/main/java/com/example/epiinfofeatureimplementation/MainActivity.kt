@@ -2,6 +2,7 @@ package com.example.epiinfofeatureimplementation
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -37,11 +38,15 @@ class MainActivity : ComponentActivity() {
         val buttonStatCalc = findViewById<Button>(R.id.button_statcalc)
         val buttonCollectData = findViewById<Button>(R.id.button_collect_data)
         val buttonAnalyseData = findViewById<Button>(R.id.button_analyse_data)
+        val imageViewLogo = findViewById<ImageView>(R.id.imageViewLogo)
+
 
         // Set up the click listeners for each button
         buttonStatCalc.setOnClickListener {
             // Handle StatCalc button click
         }
+
+        imageViewLogo.setImageResource(R.drawable.epiinfo)
 
         buttonCollectData.setOnClickListener {
             // Handle Collect Data button click
