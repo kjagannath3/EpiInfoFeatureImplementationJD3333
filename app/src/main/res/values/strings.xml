@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Epi Info Feature Implementation</string>
+    <string name="title_activity_collect_data">CollectData</string>
+    <string name="title_bar">Title</string>
+    <string name="collect_data_bar">Collect Data</string>
+    <string-array name="form_dropdown">
+        <item>Form 1</item>
+        <item>Form 2</item>
+        <item>Form 3</item>
+        <item>Form 4</item>
+        <item>Form 5</item>
+        <item>Form 6</item>
+    </string-array>
+    <string name="title_activity_view_records">ViewRecords</string>
+
 </resources>

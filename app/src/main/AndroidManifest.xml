@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EpiInfoFeatureImplementation"
         tools:targetApi="31">
+        <activity
+            android:name=".ViewRecords"
+            android:exported="false"
+            android:label="@string/title_activity_view_records"
+            android:theme="@style/Theme.EpiInfoFeatureImplementation" />
+        <activity
+            android:name=".CollectData"
+            android:exported="false"
+            android:label="@string/title_activity_collect_data"
+            android:theme="@style/Theme.EpiInfoFeatureImplementation" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
