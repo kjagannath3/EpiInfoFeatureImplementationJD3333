@@ -15,6 +15,11 @@
         android:theme="@style/Theme.EpiInfoFeatureImplementation"
         tools:targetApi="31">
         <activity
+            android:name=".ViewRecords"
+            android:exported="false"
+            android:label="@string/title_activity_view_records"
+            android:theme="@style/Theme.EpiInfoFeatureImplementation" />
+        <activity
             android:name=".CollectData"
             android:exported="false"
             android:label="@string/title_activity_collect_data"
