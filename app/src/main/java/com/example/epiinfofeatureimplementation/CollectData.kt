@@ -1,6 +1,10 @@
 package com.example.epiinfofeatureimplementation
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,17 +19,28 @@ import com.example.epiinfofeatureimplementation.ui.theme.EpiInfoFeatureImplement
 class CollectData : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            EpiInfoFeatureImplementationTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting2("Android")
-                }
+        setContentView(R.layout.activity_collect_data)
+        val formDropdown = findViewById<Spinner>(R.id.spinner);
+        val chooseFormButton = findViewById<Button>(R.id.button_choose_form);
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.form_dropdown,
+            android.R.layout.simple_spinner_dropdown_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            formDropdown.adapter = adapter
+        }
+
+        var dropDownVisible = false
+        chooseFormButton.setOnClickListener {
+            dropDownVisible = !dropDownVisible
+            if (dropDownVisible) {
+                formDropdown.visibility = View.VISIBLE
+            } else {
+                formDropdown.visibility = View.GONE
             }
         }
+
     }
 }
 

@@ -26,5 +26,20 @@
         android:textSize="40sp"/>
 
 
+    <Button
+        android:id="@+id/button_choose_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Form"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/grey_rounded_border"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:visibility="gone"/>
+
+
 
 </LinearLayout>
