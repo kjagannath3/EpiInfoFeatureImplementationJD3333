@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Epi Info Feature Implementation</string>
     <string name="title_activity_collect_data">CollectData</string>
+    <string name="title_bar">Title</string>
+    <string name="collect_data_bar">Collect Data</string>
+
 </resources>
