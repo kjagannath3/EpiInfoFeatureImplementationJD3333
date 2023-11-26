@@ -42,6 +42,7 @@ import androidx.compose.ui.res.painterResource
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             EpiInfoFeatureImplementationTheme {
                 RecyclerView()
@@ -51,7 +52,7 @@ class ViewRecords : ComponentActivity() {
 
 
 
-
+        //setupHomeButton(this)
 
     }
 }
@@ -111,21 +112,19 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
                 RecordListItem(name = currentName)
         }
 
-        //setContentView(R.layout.activity_view_records)
-
-        //setupHomeButton(this)
-    }
-}
-
-private fun setupHomeButton(activity: ComponentActivity) {
-    val homeButton = activity.findViewById<Button>(R.id.button_home)
-    homeButton.setOnClickListener {
-        // Navigate to MainActivity (activity_main.xml)
-        val intent = Intent(activity, MainActivity::class.java)
-        activity.startActivity(intent)
 
     }
 }
+
+//private fun setupHomeButton(activity: ComponentActivity) {
+//    val homeButton = activity.findViewById<Button>(R.id.button_home)
+//    homeButton.setOnClickListener {
+//        // Navigate to MainActivity (activity_main.xml)
+//        val intent = Intent(activity, MainActivity::class.java)
+//        activity.startActivity(intent)
+//
+//    }
+//}
 
 @Composable
 fun Greeting3(name: String, modifier: Modifier = Modifier) {

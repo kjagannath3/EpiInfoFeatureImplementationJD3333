@@ -30,32 +30,32 @@
         android:textSize="40sp"
         android:layout_centerHorizontal="true"/>
 
-    <Button
-        android:id="@+id/button_home"
-        android:layout_width="29dp"
-        android:layout_height="30dp"
-        android:layout_alignTop="@+id/textViewTitle"
-        android:layout_marginStart="-44dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="16dp"
-        android:layout_toEndOf="@+id/textViewTitle"
-        android:background="@drawable/home_button" />
+<!--    <Button-->
+<!--        android:id="@+id/button_home"-->
+<!--        android:layout_width="29dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_alignTop="@+id/textViewTitle"-->
+<!--        android:layout_marginStart="-44dp"-->
+<!--        android:layout_marginTop="13dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_toEndOf="@+id/textViewTitle"-->
+<!--        android:background="@drawable/home_button" />-->
 
-    <Button
-        android:id="@+id/button_choose_form"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_home"
-        android:layout_marginTop="69dp"
-        android:background="@drawable/grey_rounded_border"
-        android:text="Choose Form" />
+<!--    <Button-->
+<!--        android:id="@+id/button_choose_form"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/button_home"-->
+<!--        android:layout_marginTop="69dp"-->
+<!--        android:background="@drawable/grey_rounded_border"-->
+<!--        android:text="Choose Form" />-->
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_below="@+id/button_choose_form"/>
+<!--    <Spinner-->
+<!--        android:id="@+id/spinner"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_below="@+id/button_choose_form"/>-->
 
 
 </RelativeLayout>
