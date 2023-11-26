@@ -1,59 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal">
+    android:padding="16dp">
 
     <FrameLayout
         android:id="@+id/content_frame"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_weight="1"
+        android:layout_below="@+id/textViewTitle" />
+
     <TextView
+        android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:textColor="@color/white"
         android:background="@drawable/blue_rounded_border"
-        android:text="@string/title_bar"
-        />
-
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
+        android:text="@string/collect_data_bar"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:layout_centerHorizontal="true"/>
 
     <Button
-        android:id="@+id/button_statcalc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="StatCalc"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/grey_rounded_border"/>
+        android:id="@+id/button_home"
+        android:layout_width="29dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_marginStart="-44dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@+id/textViewTitle"
+        android:background="@drawable/home_button" />
 
     <Button
-        android:id="@+id/button_collect_data"
+        android:id="@+id/button_choose_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Collect Data"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/grey_rounded_border"/>
+        android:layout_below="@+id/button_home"
+        android:layout_marginTop="69dp"
+        android:background="@drawable/grey_rounded_border"
+        android:text="Choose Form" />
 
-    <Button
-        android:id="@+id/button_analyse_data"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_height="wrap_content"
-        android:text="Analyse Data"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/grey_rounded_border"/>
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_below="@+id/button_choose_form"/>
 
-</LinearLayout>
+</RelativeLayout>
