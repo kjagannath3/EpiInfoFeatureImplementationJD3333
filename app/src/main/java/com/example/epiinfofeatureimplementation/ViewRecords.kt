@@ -9,8 +9,11 @@ import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+//import androidx.compose.foundation.layout.ColumnScopeInstance.align
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,10 +36,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.epiinfofeatureimplementation.ui.theme.EpiInfoFeatureImplementationTheme
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 
 
 class ViewRecords : ComponentActivity() {
@@ -45,7 +51,11 @@ class ViewRecords : ComponentActivity() {
 
         setContent {
             EpiInfoFeatureImplementationTheme {
-                RecyclerView()
+                Column {
+                    TitleTextView()
+                    RecyclerView()
+                }
+
                 HomeButton()
             }
         }
@@ -65,17 +75,21 @@ fun HomeButton() {
         modifier = Modifier
             .padding(top = 13.dp, start = 16.dp, end = 16.dp)
             .fillMaxWidth()
+        , horizontalArrangement = Arrangement.End
     ) {
-        Text("Title", Modifier.weight(1f)) // Replace with your actual title composable
-
         // Your home button
         Image(
             painter = painterResource(id = R.drawable.home_button),
             contentDescription = "Home",
             modifier = Modifier
                 .size(width = 29.dp, height = 30.dp)
-                .clickable { val intent = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent) }
+                .clickable {
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                }
+                .fillMaxWidth()
+
+
         )
     }
 }
@@ -102,6 +116,20 @@ fun RecordListItem(name : String) {
 }
 
 @Composable
+fun TitleTextView() {
+    Text(
+        text = stringResource(R.string.title_activity_view_records),
+        modifier = Modifier
+            .fillMaxWidth() // Corresponds to layout_width="match_parent"
+            .background(
+                color = Color.Blue, // Replace with your actual color or drawable as a Brush
+                shape = RoundedCornerShape(4.dp) // Adjust the corner radius as needed
+            )
+            .padding(16.dp) // Add padding if needed
+    )
+}
+
+@Composable
 fun RecyclerView(names : List<String> = List(10){"$it"}) {
     LazyColumn(modifier = Modifier
         .fillMaxWidth()
@@ -116,15 +144,7 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
     }
 }
 
-//private fun setupHomeButton(activity: ComponentActivity) {
-//    val homeButton = activity.findViewById<Button>(R.id.button_home)
-//    homeButton.setOnClickListener {
-//        // Navigate to MainActivity (activity_main.xml)
-//        val intent = Intent(activity, MainActivity::class.java)
-//        activity.startActivity(intent)
-//
-//    }
-//}
+
 
 @Composable
 fun Greeting3(name: String, modifier: Modifier = Modifier) {
