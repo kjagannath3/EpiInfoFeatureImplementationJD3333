@@ -11,7 +11,7 @@
         <item>Form 5</item>
         <item>Form 6</item>
     </string-array>
-    <string name="title_activity_view_records">ViewRecords</string>
+    <string name="title_activity_view_records">View Records</string>
     <string name="title_activity_dummy">dummy</string>
 
 </resources>

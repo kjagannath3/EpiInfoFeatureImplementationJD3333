@@ -3,6 +3,7 @@ package com.example.epiinfofeatureimplementation
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -37,11 +38,27 @@ class CollectData : ComponentActivity() {
             dropDownVisible = !dropDownVisible
             if (dropDownVisible) {
                 formDropdown.visibility = View.VISIBLE
+
             } else {
                 formDropdown.visibility = View.GONE
             }
 
         }
+        formDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                // Handle item selection
+                // For example, start activity when a specific item is selected
+                 // Replace `someSpecificPosition` with the actual position index
+                val intent = Intent(this@CollectData, ViewRecords::class.java)
+                startActivity(intent)
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Optional: Handle the scenario when nothing is selected
+            }
+        }
+
 
         setupHomeButton(this)
 
