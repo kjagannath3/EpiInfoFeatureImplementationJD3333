@@ -33,9 +33,9 @@ import androidx.compose.foundation.lazy.items
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_view_records)
 
-
-
+        setupHomeButton(this)
 
     }
 }
@@ -67,9 +67,6 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
                 Text(text = currentName)
         }
 
-        setContentView(R.layout.activity_view_records)
-
-        setupHomeButton(this)
     }
 }
 
