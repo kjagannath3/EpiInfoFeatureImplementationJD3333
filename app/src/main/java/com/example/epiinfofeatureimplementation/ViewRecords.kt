@@ -3,10 +3,12 @@ package com.example.epiinfofeatureimplementation
 import android.os.Bundle
 import android.view.Surface
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -23,11 +25,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epiinfofeatureimplementation.ui.theme.EpiInfoFeatureImplementationTheme
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
+            EpiInfoFeatureImplementationTheme {
+                RecyclerView()
+            }
+        }
+
 
 
 
@@ -55,10 +65,13 @@ fun RecordListItem(name : String) {
 
 @Composable
 fun RecyclerView(names : List<String> = List(10){"$it"}) {
-    LazyColumn {
+    LazyColumn(modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(max = 300.dp)
+    ) {
         items(names) {
             currentName ->
-                Text(text = currentName)
+                RecordListItem(name = currentName)
         }
     }
 }
@@ -75,6 +88,6 @@ fun Greeting3(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview3() {
     EpiInfoFeatureImplementationTheme {
-        RecordListItem(name = "Keshav")
+        RecyclerView(List<String>(10){"$it"})
     }
 }
