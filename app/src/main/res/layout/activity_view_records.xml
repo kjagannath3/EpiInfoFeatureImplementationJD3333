@@ -23,11 +23,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/record_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
-
-
+        android:layout_height="match_parent"
 
         android:text="@string/collect_data_bar"
         android:textColor="@color/white"

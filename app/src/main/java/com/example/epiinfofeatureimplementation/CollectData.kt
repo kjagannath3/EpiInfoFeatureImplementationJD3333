@@ -32,14 +32,14 @@ class CollectData : ComponentActivity() {
             formDropdown.adapter = adapter
         }
 
-//        var dropDownVisible = false
+        var dropDownVisible = false
         chooseFormButton.setOnClickListener {
-//            dropDownVisible = !dropDownVisible
-//            if (dropDownVisible) {
-//                formDropdown.visibility = View.VISIBLE
-//            } else {
-//                formDropdown.visibility = View.GONE
-//            }
+            dropDownVisible = !dropDownVisible
+            if (dropDownVisible) {
+                formDropdown.visibility = View.VISIBLE
+            } else {
+                formDropdown.visibility = View.GONE
+            }
 
         }
 
