@@ -55,7 +55,8 @@ class MainActivity : ComponentActivity() {
         }
 
         buttonAnalyseData.setOnClickListener {
-            // Handle Analyse Data button click
+            val intent = Intent(this, ViewRecords::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.epiinfofeatureimplementation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -31,14 +32,15 @@ class CollectData : ComponentActivity() {
             formDropdown.adapter = adapter
         }
 
-        var dropDownVisible = false
+//        var dropDownVisible = false
         chooseFormButton.setOnClickListener {
-            dropDownVisible = !dropDownVisible
-            if (dropDownVisible) {
-                formDropdown.visibility = View.VISIBLE
-            } else {
-                formDropdown.visibility = View.GONE
-            }
+//            dropDownVisible = !dropDownVisible
+//            if (dropDownVisible) {
+//                formDropdown.visibility = View.VISIBLE
+//            } else {
+//                formDropdown.visibility = View.GONE
+//            }
+
         }
 
     }
