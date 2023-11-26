@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.ColumnScopeInstance.align
@@ -99,7 +100,7 @@ fun HomeButton() {
 
 @Composable
 fun RecordListItem(name : String) {
-    Surface(color = MaterialTheme.colorScheme.primary,
+    Surface(color = Color.Gray,
         modifier = Modifier.padding(vertical = 4.dp,  horizontal = 8.dp)) {
         Column(modifier = Modifier
             .padding(24.dp)
@@ -134,15 +135,13 @@ fun TitleTextView() {
 fun RecyclerView(names : List<String> = List(10){"$it"}) {
     LazyColumn(modifier = Modifier
         .fillMaxWidth()
-        .heightIn(max = 300.dp)
+        .heightIn(max = 600.dp)
+        //.verticalScroll(rememberScrollState())
     ) {
         items(names) {
             currentName ->
                 RecordListItem(name = currentName)
         }
-
-
-
     }
 }
 
