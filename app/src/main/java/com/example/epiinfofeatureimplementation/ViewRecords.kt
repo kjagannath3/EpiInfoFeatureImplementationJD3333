@@ -80,9 +80,9 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
                 RecordListItem(name = currentName)
         }
 
-        setContentView(R.layout.activity_view_records)
+        //setContentView(R.layout.activity_view_records)
 
-        setupHomeButton(this)
+        //setupHomeButton(this)
     }
 }
 
