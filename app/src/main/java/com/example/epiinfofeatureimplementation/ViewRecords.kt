@@ -62,10 +62,11 @@ class ViewRecords : ComponentActivity() {
 
 
 
-        //setupHomeButton(this)
+
 
     }
 }
+
 
 @Composable
 fun HomeButton() {
@@ -141,8 +142,11 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
         }
 
 
+
     }
 }
+
+
 
 
 
