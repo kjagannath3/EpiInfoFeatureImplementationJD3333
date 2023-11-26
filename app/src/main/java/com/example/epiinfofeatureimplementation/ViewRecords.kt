@@ -15,17 +15,7 @@ import com.example.epiinfofeatureimplementation.ui.theme.EpiInfoFeatureImplement
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            EpiInfoFeatureImplementationTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting3("Android")
-                }
-            }
-        }
+        setContentView(R.layout.activity_view_records)
     }
 }
 
