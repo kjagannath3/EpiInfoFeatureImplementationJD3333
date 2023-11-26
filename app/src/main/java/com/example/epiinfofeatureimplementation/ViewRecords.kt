@@ -1,7 +1,11 @@
 package com.example.epiinfofeatureimplementation
 
 import android.os.Bundle
+
 import android.view.Surface
+
+import android.content.Intent
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -29,6 +33,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 
 
+
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,7 @@ class ViewRecords : ComponentActivity() {
                 RecyclerView()
             }
         }
+
 
 
 
@@ -73,6 +79,20 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
             currentName ->
                 RecordListItem(name = currentName)
         }
+
+        setContentView(R.layout.activity_view_records)
+
+        setupHomeButton(this)
+    }
+}
+
+private fun setupHomeButton(activity: ComponentActivity) {
+    val homeButton = activity.findViewById<Button>(R.id.button_home)
+    homeButton.setOnClickListener {
+        // Navigate to MainActivity (activity_main.xml)
+        val intent = Intent(activity, MainActivity::class.java)
+        activity.startActivity(intent)
+
     }
 }
 
