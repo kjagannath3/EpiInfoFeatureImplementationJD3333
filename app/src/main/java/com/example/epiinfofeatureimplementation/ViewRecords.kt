@@ -10,22 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.recyclerview.widget.RecyclerView
 import com.example.epiinfofeatureimplementation.ui.theme.EpiInfoFeatureImplementationTheme
 
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            EpiInfoFeatureImplementationTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting3("Android")
-                }
-            }
-        }
+        setContentView(R.layout.activity_view_records)
+        val recordsList = findViewById<RecyclerView>(R.id.records_view)
     }
 }
 

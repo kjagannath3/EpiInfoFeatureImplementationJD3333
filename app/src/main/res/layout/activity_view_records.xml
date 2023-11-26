@@ -25,6 +25,13 @@
         android:text="@string/title_bar"
         />
 
+    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+        android:id="@+id/records_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </view>
+
 
 
 
