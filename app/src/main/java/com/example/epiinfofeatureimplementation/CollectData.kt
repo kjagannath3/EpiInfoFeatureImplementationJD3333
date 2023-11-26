@@ -49,8 +49,11 @@ class CollectData : ComponentActivity() {
                 // Handle item selection
                 // For example, start activity when a specific item is selected
                  // Replace `someSpecificPosition` with the actual position index
-                val intent = Intent(this@CollectData, ViewRecords::class.java)
-                startActivity(intent)
+                if (position == 3) {
+                    val intent = Intent(this@CollectData, ViewRecords::class.java)
+                    startActivity(intent)
+                }
+
 
             }
 
