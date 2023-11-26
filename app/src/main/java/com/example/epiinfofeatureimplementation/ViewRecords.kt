@@ -1,7 +1,11 @@
 package com.example.epiinfofeatureimplementation
 
 import android.os.Bundle
+
 import android.view.Surface
+
+import android.content.Intent
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,9 +29,11 @@ import com.example.epiinfofeatureimplementation.ui.theme.EpiInfoFeatureImplement
 import androidx.compose.foundation.lazy.items
 
 
+
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
 
 
@@ -60,6 +66,20 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
             currentName ->
                 Text(text = currentName)
         }
+
+        setContentView(R.layout.activity_view_records)
+
+        setupHomeButton(this)
+    }
+}
+
+private fun setupHomeButton(activity: ComponentActivity) {
+    val homeButton = activity.findViewById<Button>(R.id.button_home)
+    homeButton.setOnClickListener {
+        // Navigate to MainActivity (activity_main.xml)
+        val intent = Intent(activity, MainActivity::class.java)
+        activity.startActivity(intent)
+
     }
 }
 
