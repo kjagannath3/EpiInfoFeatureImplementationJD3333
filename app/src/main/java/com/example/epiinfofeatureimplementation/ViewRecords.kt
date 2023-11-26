@@ -42,6 +42,7 @@ import androidx.compose.ui.res.painterResource
 class ViewRecords : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             EpiInfoFeatureImplementationTheme {
                 RecyclerView()
@@ -55,6 +56,7 @@ class ViewRecords : ComponentActivity() {
 
     }
 }
+
 
 @Composable
 fun HomeButton() {
@@ -111,9 +113,7 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
                 RecordListItem(name = currentName)
         }
 
-        //setContentView(R.layout.activity_view_records)
 
-        //setupHomeButton(this)
     }
 }
 
