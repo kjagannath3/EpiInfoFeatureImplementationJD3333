@@ -17,6 +17,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/blue_rounded_border"
+
+        android:text="@string/title_activity_view_records"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/record_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+
+
         android:text="@string/collect_data_bar"
         android:textColor="@color/white"
         android:textSize="40sp"
@@ -48,5 +60,6 @@
         android:layout_width="match_parent"
         android:visibility="gone"
         android:layout_below="@+id/button_choose_form"/>
+
 
 </RelativeLayout>
