@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 
 
 class ViewRecords : ComponentActivity() {
@@ -101,19 +102,22 @@ fun HomeButton() {
 @Composable
 fun RecordListItem(name : String) {
     Surface(color = Color.Gray,
-        modifier = Modifier.padding(vertical = 4.dp,  horizontal = 8.dp)) {
+        modifier = Modifier.padding(vertical = 4.dp,  horizontal = 8.dp)
+            .background(color = Color(0XFF3566d0),
+                shape = RoundedCornerShape(8.dp))) {
         Column(modifier = Modifier
             .padding(24.dp)
             .fillMaxWidth()) {
             Row {
                 Column {
-                    Text(text = "Course")
+                    Text(text = "Record")
                     Text(text = name, style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold
                     ))
                 }
             }
         }
+
     }
 }
 
@@ -121,11 +125,14 @@ fun RecordListItem(name : String) {
 fun TitleTextView() {
     Text(
         text = stringResource(R.string.title_activity_view_records),
+        color = Color.White,
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold,
         modifier = Modifier
             .fillMaxWidth() // Corresponds to layout_width="match_parent"
             .background(
-                color = Color.Blue, // Replace with your actual color or drawable as a Brush
-                shape = RoundedCornerShape(4.dp) // Adjust the corner radius as needed
+                color =  Color(0XFF3566d0), // Replace with your actual color or drawable as a Brush
+                shape = RoundedCornerShape(8.dp) // Adjust the corner radius as needed
             )
             .padding(16.dp) // Add padding if needed
     )
