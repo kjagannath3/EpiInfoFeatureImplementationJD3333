@@ -1,6 +1,7 @@
 package com.example.epiinfofeatureimplementation
 
 import android.os.Bundle
+import android.content.Intent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -41,6 +42,18 @@ class CollectData : ComponentActivity() {
             }
         }
 
+        setupHomeButton(this)
+
+    }
+}
+
+
+private fun setupHomeButton(activity: ComponentActivity) {
+    val homeButton = activity.findViewById<Button>(R.id.button_home)
+    homeButton.setOnClickListener {
+        // Navigate to MainActivity (activity_main.xml)
+        val intent = Intent(activity, MainActivity::class.java)
+        activity.startActivity(intent)
     }
 }
 
