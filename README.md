@@ -1,5 +1,5 @@
 # EpiInfoFeatureImplementation
-This is the initial feature implementation repo for the Android version of Epi Info. 
+This is the initial feature implementation repo for the Android version of Epi Info for team JIE-3333. 
 This will eventually be integrated with the rest of the Epi Info application for global users.
 
 For our feature implementation we decided to implement the view form MMF. We decided to choose this feature after 
