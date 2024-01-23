@@ -104,6 +104,26 @@ class MainActivity : ComponentActivity() {
                         Log.d(TAG, "Document Snapshot Data: ${document.data}")
                     }
                 }
+
+            db.collection("users").document("Keshav Jagannath")
+                .delete()
+                .addOnFailureListener{exception ->
+                   Log.w(TAG, "Error deleting Document:", exception)
+                }
+                .addOnSuccessListener {
+                    Log.d(TAG, "Document successfully deleted")
+                }
+
+            val rheaDixitRef = db.collection("users").document("Rhea " +
+                    "Dixit")
+                .update("id", 99999)
+                .addOnFailureListener {exception ->
+                    Log.w(TAG, "Error Updating Document", exception)
+                }
+                .addOnSuccessListener {
+                    Log.d(TAG, "Document Successfully Updated")
+                }
+
             // Handle StatCalc button click
         }
 
