@@ -39,17 +39,47 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val db = Firebase.firestore
 
-        //The code below is a basic example of writing crud operations to
-        val user = hashMapOf(
+        //The code below is a basic example of writing crud operations to the firestore DB. We
+        //start by adding a bunch of dummy objects
+        val johnDoe = hashMapOf(
             "first" to "John",
             "last" to "Doe",
-            "id" to "12345"
+            "id" to 12345
+        )
+
+        val keshavJagannath = hashMapOf(
+            "first" to "Keshav",
+            "last" to "Jagannath",
+            "id" to 98765
         )
 
 
+        val rheaDixit = hashMapOf(
+            "first" to "Rhea",
+            "last" to "Dixit",
+            "id" to 13579
+        )
+
         db.collection("users").document("John Doe")
-            .set(user)
-            .addOnSuccessListener { Log.d(TAG, "User document successfully created") }
+            .set(johnDoe)
+            .addOnSuccessListener { Log.d(TAG, "User document successfully created: John Doe") }
+            .addOnFailureListener{e -> Log.w(TAG, "Error writing document", e)}
+
+
+
+        db.collection("users").document("Keshav Jagannath")
+            .set(keshavJagannath)
+            .addOnSuccessListener { Log.d(TAG, "User document successfully created: Keshav " +
+                    "Jagannath") }
+            .addOnFailureListener{e -> Log.w(TAG, "Error writing document", e)}
+
+
+        db.collection("users").document("Rhea Dixit")
+            .set(rheaDixit)
+            .addOnSuccessListener { Log.d(TAG, "User document successfully created: Rhea " +
+                    "Dixit") }
+            .addOnFailureListener{e -> Log.w(TAG, "Error writing document", e)}
+
 
 
         super.onCreate(savedInstanceState)
@@ -63,6 +93,17 @@ class MainActivity : ComponentActivity() {
 
         // Set up the click listeners for each button
         buttonStatCalc.setOnClickListener {
+            //Dummy content to test crud operations for firestore db
+            val docRef = db.collection("users").document("John Doe")
+            docRef.get()
+                .addOnFailureListener{exception -> Log.d(TAG, "Get failed with", exception)}
+                .addOnSuccessListener { document ->
+                    if (document == null) {
+                        Log.d(TAG, "No such document found")
+                    } else {
+                        Log.d(TAG, "Document Snapshot Data: ${document.data}")
+                    }
+                }
             // Handle StatCalc button click
         }
 
