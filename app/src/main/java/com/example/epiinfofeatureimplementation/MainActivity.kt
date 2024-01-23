@@ -1,7 +1,9 @@
 package com.example.epiinfofeatureimplementation
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
@@ -30,9 +32,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.epiinfofeatureimplementation.ui.theme.EpiInfoFeatureImplementationTheme
 import com.google.android.engage.common.datamodel.Image
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val db = Firebase.firestore
+
+        //The code below is a basic example of writing crud operations to
+        val user = hashMapOf(
+            "first" to "John",
+            "last" to "Doe",
+            "id" to "12345"
+        )
+
+
+        db.collection("users").document("John Doe")
+            .set(user)
+            .addOnSuccessListener { Log.d(TAG, "User document successfully created") }
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
