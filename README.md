@@ -15,5 +15,3 @@ We plan to implement our database aspect (which will be tied into Box) in the la
 We have three primary files for this feature: a home screen, a collect data screen and a view records screen.
 We utilized the existing code base for EpiInfo from the CDC to get branded images/logos. 
 The plan is to use more of the existing code as we implement more features and get a better understanding of the existing code.
-
-

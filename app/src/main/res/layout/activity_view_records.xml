@@ -30,7 +30,7 @@
         android:textSize="40sp"
         android:layout_centerHorizontal="true"/>
 
-<!--    <Button-->
+    <!--    <Button-->
 <!--        android:id="@+id/button_home"-->
 <!--        android:layout_width="29dp"-->
 <!--        android:layout_height="30dp"-->
