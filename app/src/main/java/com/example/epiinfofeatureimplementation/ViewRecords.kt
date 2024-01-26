@@ -16,11 +16,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.ColumnScopeInstance.align
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ListItem
@@ -39,12 +41,19 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 class ViewRecords : ComponentActivity() {
@@ -53,9 +62,10 @@ class ViewRecords : ComponentActivity() {
 
         setContent {
             EpiInfoFeatureImplementationTheme {
+                val viewModel: RecordsViewModel = viewModel()
                 Column {
                     TitleTextView()
-                    RecyclerView()
+                    RecyclerView(viewModel = viewModel)
                 }
 
                 HomeButton()
@@ -69,10 +79,21 @@ class ViewRecords : ComponentActivity() {
     }
 }
 
+class RecordsViewModel : ViewModel() {
+    // Use mutableStateOf to observe changes in the list
+    var records by mutableStateOf<List<String>>(List(10) { "Record $it"})
+        private set
+
+    // Function to add a new record
+    fun addRecord() {
+        records = records + "Record ${records.size}"
+    }
+}
 
 @Composable
 fun HomeButton() {
     val context = LocalContext.current
+    val viewModel: RecordsViewModel = viewModel()
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
@@ -94,8 +115,25 @@ fun HomeButton() {
 
 
         )
+
+        // Spacer to create whitespace between buttons
+        Spacer(modifier = Modifier.width(8.dp))
+
+        // Create new record button
+        Image(
+            painter = painterResource(id = R.drawable.round_new),
+            contentDescription = "Create New Record",
+            modifier = Modifier
+                .size(width = 29.dp, height = 30.dp)
+                .clickable {
+                    // Handle the click action for create new record
+                    viewModel.addRecord()
+                }
+                .fillMaxWidth()
+        )
     }
 }
+
 
 
 
@@ -139,15 +177,15 @@ fun TitleTextView() {
 }
 
 @Composable
-fun RecyclerView(names : List<String> = List(10){"$it"}) {
+fun RecyclerView(viewModel: RecordsViewModel) {
     LazyColumn(modifier = Modifier
         .fillMaxWidth()
         .heightIn(max = 600.dp)
         //.verticalScroll(rememberScrollState())
     ) {
-        items(names) {
-            currentName ->
-                RecordListItem(name = currentName)
+        items(viewModel.records) {
+                currentName ->
+            RecordListItem(name = currentName)
         }
     }
 }
@@ -155,7 +193,7 @@ fun RecyclerView(names : List<String> = List(10){"$it"}) {
 
 
 
-
+/*
 @Composable
 fun Greeting3(name: String, modifier: Modifier = Modifier) {
     Text(
@@ -171,3 +209,4 @@ fun GreetingPreview3() {
         RecyclerView(List<String>(10){"$it"})
     }
 }
+*/
