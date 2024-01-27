@@ -51,9 +51,8 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_below="@+id/button_choose_form"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_choose_form" />
 
 </RelativeLayout>
