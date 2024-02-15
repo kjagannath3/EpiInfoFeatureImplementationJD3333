@@ -65,7 +65,7 @@ public class SyncFileGenerator {
 		this.id = (cal.get(Calendar.HOUR_OF_DAY) * 10000) + (cal.get(Calendar.MINUTE) * 100) + cal.get(Calendar.SECOND);
 
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx,"3034500")
-		.setSmallIcon(R.drawable.ic_archive)
+		.setSmallIcon(R.drawable.ic_archive)S
 		.setLargeIcon(logo)
 		.setContentTitle("Generating sync file (" + viewName + ")")
 		.setContentText("Pending");
@@ -188,7 +188,7 @@ public class SyncFileGenerator {
 
 			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
 			String decimalSeparator = sharedPref.getString("decimal_symbol", ".");
-			//char decimalSeparator = ((DecimalFormat)DecimalFormat.getInstance()).getDecimalFormatSymbols().getDecimalSeparator();
+			//char decimalSeparator = ((DecimalForcStrmat)DecimalFormat.getInstance()).getDecimalFormatSymbols().getDecimalSeparator();
 
 			int pageSize = Integer.parseInt(sharedPref.getString("page_size", "100"));
 			
