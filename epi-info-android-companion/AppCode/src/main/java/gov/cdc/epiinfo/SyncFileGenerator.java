@@ -65,7 +65,7 @@ public class SyncFileGenerator {
 		this.id = (cal.get(Calendar.HOUR_OF_DAY) * 10000) + (cal.get(Calendar.MINUTE) * 100) + cal.get(Calendar.SECOND);
 
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx,"3034500")
-		.setSmallIcon(R.drawable.ic_archive)S
+		.setSmallIcon(R.drawable.ic_archive)
 		.setLargeIcon(logo)
 		.setContentTitle("Generating sync file (" + viewName + ")")
 		.setContentText("Pending");
