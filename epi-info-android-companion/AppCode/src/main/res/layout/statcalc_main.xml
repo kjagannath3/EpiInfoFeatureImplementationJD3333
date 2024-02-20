@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	    android:layout_height="fill_parent"
+	    android:layout_width="fill_parent"
+	    android:background="#FFFFFFFF"
+	    android:orientation="vertical">
+	    <LinearLayout
+			android:orientation="vertical" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:gravity="center">
+			<ImageView
+				android:layout_height="113dp"
+				android:layout_width="293dp"
+				android:gravity="center"
+				android:src="@drawable/sc_rect"/>
+			<Spinner
+				android:id="@+id/activitySpinner"
+				android:layout_width="313dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp"/>
+		</LinearLayout>
+		<ScrollView
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:layout_marginTop="5dp">
+<LinearLayout 
+	android:orientation="vertical" 
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:gravity="center_horizontal">
+		<Button 
+	    	android:id="@+id/btnOpenEpi"
+	    	android:layout_width="313dp"
+	    	android:layout_height="38dp"
+	    	android:layout_margin="5dp"
+	    	android:text="@string/statcalc_btn9"/>
+	</LinearLayout>
+	</ScrollView>
+</LinearLayout>

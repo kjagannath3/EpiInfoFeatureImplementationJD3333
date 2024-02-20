@@ -1,19 +1,32 @@
-# EpiInfoFeatureImplementation
-This is the initial feature implementation repo for the Android version of Epi Info for team JIE-3333. 
-This will eventually be integrated with the rest of the Epi Info application for global users.
+# Epi Info Android Companion
+Updated Android version for the Epi Info application developed by the Centers for Disease Control and Prevention. Epi Info is an application used by epidimiologists worldwide to help record, track and analyze information about outbreaks. Epidimiolgists create forms, ask patients in the field to fill out their symptoms, and then use the data they collect to find trends in symptoms/disease spread. The mobile application is primarily used to analyze data, fill out forms and do different statistical calculations. 
 
-For our feature implementation we decided to implement the view form MMF. We decided to choose this feature after 
-discussing with our client what was the most integral feature for our preliminary implementation of our tech stack. 
+## Release Notes
+### Version 0.1.0
 
-They encouraged us to choose a feature that was basic but still an integral function of the app.
-In this case, viewing the form is important for epidemiologists. They can access forms completed by 
-their target audience (members of a community experiencing an epidemic) in an efficient and effective way.
+#### New Features
+* Source code and functionality from the outdated CDC repository was implemented to replace the previous "blank slate" development approach.  
+* After these changes, the scope of future project goals will be adjusted accordingly to suit development objectives.
 
-For this feature that was implemented, we used Android Studio as our development IDE.
-Our code was written in Kotlin and contains primarily .xml and .kt files.
-We plan to implement our database aspect (which will be tied into Box) in the later sprints of the project.
-We have three primary files for this feature: a home screen, a collect data screen and a view records screen.
-We utilized the existing code base for EpiInfo from the CDC to get branded images/logos. 
-The plan is to use more of the existing code as we implement more features and get a better understanding of the existing code.
+#### Bug Fixes
+* Fixed: Updated file permissions to access videos, images, and audio on local device. 
+* Fixed: Incorrect Grade plugin version was resolved in classpath. 
+* Fixed: Enabled ability to open Collect Data and View Records screens. 
 
+#### Known Issues
+* Compatibility: Features from the old source code have not been rigorously tested, with a likely presence of compatibility errors. 
+** Given that this update has provided features encompassed by later sprints, a rigorous testing process has not yet been conducted for related functionalities.
 
+### Version 0.2.0
+
+#### New Features
+* The frequency gadget of the Analyze Data tab now displays ContactID, Frequency in terms of count, and Frequency in terms of percentage. This came directly as a high priority wishlist item of the client.
+* The User Interface of StatCalc has been improved to where users can select which calculation they want to do by a dropdown menu. This declutters the original menu option page.
+
+#### Bug Fixes
+* Fixed: Identified and mapped all the compatibility issues with outdated versions.
+* Fixed: Fixed depreciation issues for Interviewer, InterviewLayoutManager, FormLayoutManager, LineListFragment, createRecord() in EpiDbHelper.
+
+#### Known Issues
+* Large, unknown existing codebase: We have been able to identify the majority of the depreciated/incompatible code, but the problem is know being able to understand the functionalities of the plethora of files in order to properly update the software and implement new and improved features. We have been working with our clients to gather as much information on how different components interact in order to combat this.
+---
