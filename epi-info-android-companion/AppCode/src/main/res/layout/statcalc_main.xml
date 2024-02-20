@@ -15,6 +15,12 @@
 				android:layout_width="293dp"
 				android:gravity="center"
 				android:src="@drawable/sc_rect"/>
+			<Spinner
+				android:id="@+id/activitySpinner"
+				android:layout_width="313dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp"/>
 		</LinearLayout>
 		<ScrollView
 		    android:layout_width="fill_parent"
@@ -25,54 +31,6 @@
 	android:layout_width="fill_parent" 
 	android:layout_height="wrap_content"
 	android:gravity="center_horizontal">
-		<Button 
-	    	android:id="@+id/btnPS"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn1"/>
-		<Button 
-	    	android:id="@+id/btnUCC"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn2"/>
-		<Button 
-	    	android:id="@+id/btnCCS"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn3"/>
-		<Button 
-	    	android:id="@+id/btn2x2"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn4"/>
-		<Button 
-	    	android:id="@+id/btnMatchedPair"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn5"/>
-		<Button 
-	    	android:id="@+id/btnChiSq"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn6"/>
-		<Button 
-	    	android:id="@+id/btnPoisson"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn7"/>		
-	    <Button 
-	    	android:id="@+id/btnBinomial"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="5dp"
-	    	android:text="@string/statcalc_btn8"/>
 		<Button 
 	    	android:id="@+id/btnOpenEpi"
 	    	android:layout_width="313dp"
