@@ -20,7 +20,7 @@ Updated Android version for the Epi Info application developed by the Centers fo
 ### Version 0.2.0
 
 #### New Features
-* (insert here)
+* The frequency gadget of the Analyze Data tab now displays ContactID, Frequency in terms of count, and Frequency in terms of percentage. This came directly as a high priority wishlist item of the client.
 
 #### Bug Fixes
 * Fixed: Identified and mapped all the compatibility issues with outdated versions.
