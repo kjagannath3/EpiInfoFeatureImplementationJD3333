@@ -247,7 +247,7 @@ public class FrequencyView extends RelativeLayout {
 								row.addView(txtCount);
 
 								TextView txtPer = new TextView(context);
-								txtPer.setText(((double) count/totalCount) * 100 + "%");
+								txtPer.setText(String.format("%.2f", ((double) count/totalCount) * 100) + "%");
 								txtPer.setLayoutParams(cellParams);
 								txtPer.setGravity(Gravity.RIGHT);
 								txtPer.setTypeface(null, Typeface.BOLD);
