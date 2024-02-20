@@ -109,7 +109,7 @@ public class RecordList extends AppCompatActivity {
 
 
 	/** Called when the activity is first created. */
-	@SuppressLint("NewApi")
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -127,7 +127,7 @@ public class RecordList extends AppCompatActivity {
 
 		self = this;
 		setContentView(R.layout.record_list);
-		lineListFragment = (LineListFragment)getFragmentManager().findFragmentById(R.id.listFragment);
+		lineListFragment = (LineListFragment) getSupportFragmentManager().findFragmentById(R.id.listFragment);
 
 		logo = BitmapFactory.decodeResource(getResources(), R.drawable.launcher);
 
@@ -758,6 +758,7 @@ public class RecordList extends AppCompatActivity {
 		}
 	}
 
+	//Doesn't do anything because the OptionMenuId is never created in OnCreateOptionMenu
 	private void LoadAnalysis()
 	{
 		final Intent analysis = new Intent(this, AnalysisMain.class);

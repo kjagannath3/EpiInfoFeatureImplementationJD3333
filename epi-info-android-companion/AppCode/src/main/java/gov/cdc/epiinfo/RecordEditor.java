@@ -494,7 +494,7 @@ public class RecordEditor extends AppCompatActivity implements ICheckCodeHost
 						}
 						if (step2 != null)
 						{
-							int step3 = step2.getCheckedRadioButtonId() % 1000;
+							int step3 = (step2.getCheckedRadioButtonId()) % 1000;
 							bundle.putInt(formMetadata.Fields.get(x).getName(), step3);
 						}
 					}
@@ -1283,7 +1283,7 @@ public class RecordEditor extends AppCompatActivity implements ICheckCodeHost
 						}
 						else
 						{
-							control.setBackgroundDrawable(highlightedFields.get(control));
+							control.setBackground(highlightedFields.get(control));
 						}
 					}
 				}
