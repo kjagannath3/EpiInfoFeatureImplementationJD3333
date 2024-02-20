@@ -15,7 +15,7 @@ Updated Android version for the Epi Info application developed by the Centers fo
 
 #### Known Issues
 * Compatibility: Features from the old source code have not been rigorously tested, with a likely presence of compatibility errors. 
-** Given that this update has provided features encompassed by later sprints, a rigorous testing process has not yet been conducted for related functionalities.
+* Given that this update has provided features encompassed by later sprints, a rigorous testing process has not yet been conducted for related functionalities.
 
 ### Version 0.2.0
 
