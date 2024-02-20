@@ -2837,8 +2837,8 @@ public class InterviewLayoutManager {
 		}
 		else if (id == 1)
 		{
-			Date now = new Date();
-			return new TimePickerDialog(container,mTimeSetListener,now.getHours(),now.getMinutes(),false);
+//			Date now = new Date();
+//			return new TimePickerDialog(container,mTimeSetListener,now.getHours(),now.getMinutes(),false);
 		}
 		return null;
 	}
