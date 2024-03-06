@@ -117,27 +117,43 @@ public class FrequencyView extends RelativeLayout {
 							header.setWeightSum(1f);
 
 							LinearLayout.LayoutParams cellParams = new LinearLayout.LayoutParams(1, LayoutParams.WRAP_CONTENT);
-							cellParams.weight = 0.5f;
+							cellParams.weight = 0.3f;
 
 							TextView txtField = new TextView(context);
-							txtField.setText(fieldName);
+							txtField.setText(fieldName + "  ");
 							txtField.setLayoutParams(cellParams);
 							txtField.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
 							txtField.setTextColor(Color.WHITE);
-							txtField.setGravity(Gravity.CENTER);
+							txtField.setGravity(Gravity.LEFT);
 							txtField.setTypeface(null, Typeface.BOLD);
 							header.addView(txtField);
 
 							TextView txtFreq = new TextView(context);
-							txtFreq.setText(context.getText(R.string.analysis_freq) + "    ");
+							txtFreq.setText(context.getText(R.string.analysis_freq));
 							txtFreq.setLayoutParams(cellParams);
 							txtFreq.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
 							txtFreq.setTextColor(Color.WHITE);
-							txtFreq.setGravity(Gravity.RIGHT);
+							txtFreq.setGravity(Gravity.CENTER);
 							txtFreq.setTypeface(null, Typeface.BOLD);
 							header.addView(txtFreq);
 
+							TextView txtPercent = new TextView(context);
+							txtPercent.setText("Percentage");
+							txtPercent.setLayoutParams(cellParams);
+							txtPercent.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+							txtPercent.setTextColor(Color.WHITE);
+							txtPercent.setGravity(Gravity.RIGHT);
+							txtPercent.setTypeface(null, Typeface.BOLD);
+							header.addView(txtPercent);
+
 							outputLayout.addView(header);
+
+							int totalCount = 0;
+							do{
+								totalCount += c.getInt(c.getColumnIndexOrThrow("COUNT(*)"));
+							} while(c.moveToNext());
+
+							c.moveToFirst();
 
 							do
 							{
@@ -217,15 +233,25 @@ public class FrequencyView extends RelativeLayout {
 								txtValue.setLayoutParams(cellParams);
 								txtValue.setTextSize(18);
 								txtValue.setTextColor(Color.parseColor("#42638c"));
-								txtValue.setGravity(Gravity.CENTER);
+								txtValue.setGravity(Gravity.LEFT);
 								row.addView(txtValue);
 
+								//int totalCount = c.getCount();
+
 								TextView txtCount = new TextView(context);
-								txtCount.setText(count + "         ");
+								txtCount.setText(count + " ");
+								//totalCount += count;
 								txtCount.setLayoutParams(cellParams);
-								txtCount.setGravity(Gravity.RIGHT);
+								txtCount.setGravity(Gravity.CENTER);
 								txtCount.setTypeface(null, Typeface.BOLD);
 								row.addView(txtCount);
+
+								TextView txtPer = new TextView(context);
+								txtPer.setText(String.format("%.2f", ((double) count/totalCount) * 100) + "%");
+								txtPer.setLayoutParams(cellParams);
+								txtPer.setGravity(Gravity.RIGHT);
+								txtPer.setTypeface(null, Typeface.BOLD);
+								row.addView(txtPer);
 
 								outputLayout.addView(row);
 

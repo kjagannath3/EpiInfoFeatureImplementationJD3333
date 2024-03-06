@@ -188,7 +188,7 @@ public class SyncFileGenerator {
 
 			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
 			String decimalSeparator = sharedPref.getString("decimal_symbol", ".");
-			//char decimalSeparator = ((DecimalFormat)DecimalFormat.getInstance()).getDecimalFormatSymbols().getDecimalSeparator();
+			//char decimalSeparator = ((DecimalForcStrmat)DecimalFormat.getInstance()).getDecimalFormatSymbols().getDecimalSeparator();
 
 			int pageSize = Integer.parseInt(sharedPref.getString("page_size", "100"));
 			

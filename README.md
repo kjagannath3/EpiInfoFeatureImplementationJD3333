@@ -1,5 +1,5 @@
 # Epi Info Android Companion
-Updated Android version for the Epi Info application developed by the Centers for Disease Control and Prevention. 
+Updated Android version for the Epi Info application developed by the Centers for Disease Control and Prevention. Epi Info is an application used by epidimiologists worldwide to help record, track and analyze information about outbreaks. Epidimiolgists create forms, ask patients in the field to fill out their symptoms, and then use the data they collect to find trends in symptoms/disease spread. The mobile application is primarily used to analyze data, fill out forms and do different statistical calculations. 
 
 ## Release Notes
 ### Version 0.1.0
@@ -15,5 +15,18 @@ Updated Android version for the Epi Info application developed by the Centers fo
 
 #### Known Issues
 * Compatibility: Features from the old source code have not been rigorously tested, with a likely presence of compatibility errors. 
-** Given that this update has provided features encompassed by later sprints, a rigorous testing process has not yet been conducted for related functionalities. 
+** Given that this update has provided features encompassed by later sprints, a rigorous testing process has not yet been conducted for related functionalities.
+
+### Version 0.2.0
+
+#### New Features
+* The frequency gadget of the Analyze Data tab now displays ContactID, Frequency in terms of count, and Frequency in terms of percentage. This came directly as a high priority wishlist item of the client.
+* The User Interface of StatCalc has been improved to where users can select which calculation they want to do by a dropdown menu. This declutters the original menu option page.
+
+#### Bug Fixes
+* Fixed: Identified and mapped all the compatibility issues with outdated versions.
+* Fixed: Fixed depreciation issues for Interviewer, InterviewLayoutManager, FormLayoutManager, LineListFragment, createRecord() in EpiDbHelper.
+
+#### Known Issues
+* Large, unknown existing codebase: We have been able to identify the majority of the depreciated/incompatible code, but the problem is know being able to understand the functionalities of the plethora of files in order to properly update the software and implement new and improved features. We have been working with our clients to gather as much information on how different components interact in order to combat this.
 ---

@@ -16,7 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -37,7 +37,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -471,8 +473,8 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 
 	private boolean selectAnswer( View circle )
 	{
-		Drawable selected = getResources().getDrawable( R.drawable.circle_selected );
-		Drawable unselected = getResources().getDrawable( R.drawable.circle );
+		Drawable selected = ResourcesCompat.getDrawable(getResources(), R.drawable.circle_selected, null);
+		Drawable unselected = ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null);
 
 		boolean answer;
 
@@ -480,13 +482,13 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 		{
 			answer = false;
 			circle.setAlpha((float)1.0);
-			circle.setBackgroundDrawable( unselected );
+			circle.setBackground( unselected );
 		}
 		else
 		{
 			answer = true;
 			circle.setAlpha((float)0.99);
-			circle.setBackgroundDrawable( selected );
+			circle.setBackground( selected );
 		}
 
 		return answer;
@@ -1494,7 +1496,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 						}
 						else
 						{
-							control.setBackgroundDrawable(highlightedFields.get(control));
+							control.setBackground(highlightedFields.get(control));
 						}
 					}
 				}

@@ -46,7 +46,7 @@ public class SettingsFragment extends PreferenceFragment {
 		final CheckBoxPreference sync_up_only = (CheckBoxPreference) getPreferenceManager().findPreference("sync_up_only");
 		final CheckBoxPreference sync_up_down = (CheckBoxPreference) getPreferenceManager().findPreference("sync_up_down");
 		final CheckBoxPreference sync_down_only = (CheckBoxPreference) getPreferenceManager().findPreference("sync_down_only");
-		final SwitchPreference sample_forms = (SwitchPreference) getPreferenceManager().findPreference("sample_forms");
+		final SwitchPreference sampleMD_forms = (SwitchPreference) getPreferenceManager().findPreference("sample_forms");
 		final ListPreference cloud_service = (ListPreference) getPreferenceManager().findPreference("cloud_service");
 		final SwitchPreference azure_classic = (SwitchPreference) getPreferenceManager().findPreference("azure_classic");
 		final Preference service_name = getPreferenceManager().findPreference("service_name");
@@ -166,7 +166,7 @@ public class SettingsFragment extends PreferenceFragment {
 			}
 		});
 
-		sample_forms.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+		sampleMD_forms.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference arg0, Object val) {
 				if ((Boolean)val)
