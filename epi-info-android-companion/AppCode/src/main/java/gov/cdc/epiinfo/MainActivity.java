@@ -1,6 +1,7 @@
 package gov.cdc.epiinfo;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -19,7 +20,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -32,9 +32,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -125,7 +130,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 			Intent permissions = new Intent(this, Permissions.class);
 			permissions.putExtra("PermissionType",Permissions.READ_MEDIA_IMAGES);
-			startActivityForResult(permissions,Permissions.READ_MEDIA_IMAGES);
+
+			//MainActivity.super.getActivityResultRegistry().onLaunch(Permissions.READ_MEDIA_IMAGES, temp, permissions, null);
+			//startActivityForResult(permissions,Permissions.READ_MEDIA_IMAGES);
+			permissionsActivityResultLauncher.launch(permissions);
 			return false;
 		}
 		else
@@ -134,11 +142,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		super.onActivityResult(requestCode, resultCode, intent);
-		SetupFileSystem();
-	}
+//	@Override
+//	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//		super.onActivityResult(requestCode, resultCode, intent);
+//		SetupFileSystem();
+//	}
+
+	ActivityResultContracts.StartActivityForResult temp = new ActivityResultContracts.StartActivityForResult();
+	ActivityResultLauncher<Intent> permissionsActivityResultLauncher = registerForActivityResult(
+			new ActivityResultContracts.StartActivityForResult(),
+			new ActivityResultCallback<ActivityResult>() {
+				@Override
+				public void onActivityResult(ActivityResult result) {
+					SetupFileSystem();
+				}
+			});
 
 	private void createNotificationChannel()
 	{
@@ -726,7 +744,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				new AsyncDailyDownloader().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 return true;
 			case 6006:
-				startActivityForResult(new Intent(self, LoginActivity.class),11097);
+				Intent login = new Intent(self, LoginActivity.class);
+				//startActivityForResult(new Intent(self, LoginActivity.class),11097);
+				permissionsActivityResultLauncher.launch(new Intent(self, LoginActivity.class));
 				return true;
         }
         return super.onOptionsItemSelected(item);
