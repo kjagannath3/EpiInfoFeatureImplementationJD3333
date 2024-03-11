@@ -878,6 +878,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			}
 		}
 	}
+
 	public static class PasswordDialogFragment extends DialogFragment {
 		int mNum;
 

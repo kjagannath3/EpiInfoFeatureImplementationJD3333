@@ -580,7 +580,7 @@ public class RecordEditor extends AppCompatActivity implements ICheckCodeHost
 			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 			Uri fileName = null;
-			currentImageFileName = String.format("/sdcard/Download/EpiInfo/Images/%d.jpg", System.currentTimeMillis());
+			currentImageFileName = String.format(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis());
 
 			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT){
 				fileName = Uri.fromFile(new File(currentImageFileName));
