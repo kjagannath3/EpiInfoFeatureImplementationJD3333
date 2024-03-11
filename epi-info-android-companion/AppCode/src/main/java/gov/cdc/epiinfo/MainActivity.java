@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
 import android.view.KeyEvent;
@@ -29,8 +31,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -987,12 +992,42 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	}
 
-	public class CloudSynchronizer extends AsyncTask<String, Void, Integer> {
+	public class CloudSynchronizer extends AsyncTask<String, Integer, Integer> {
 
 		private String formName;
+		private ProgressBar progressBar;
+		private AlertDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			LayoutInflater inflater = LayoutInflater.from(self);
+			View view = inflater.inflate(R.layout.progress_dialog_layout, null);
+
+			progressBar = view.findViewById(R.id.progressBar);
+			progressBar.setMax(100); // Assuming totalItems is 100
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(self);
+			builder.setView(view);
+			builder.setCancelable(false);
+			builder.setMessage("Syncing...");
+			dialog = builder.create();
+			dialog.show();
+		}
 
 		@Override
 		protected Integer doInBackground(String... params) {
+
+			int totalItems = 100; // Total number of items to process
+			for (int i = 0; i <= totalItems; i++) {
+				publishProgress(i);
+
+				try {
+					Thread.sleep(100); // Feel free to experiment with this value
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
 			formName = params[0];
 			FormMetadata formMetadata = new FormMetadata("EpiInfo/Questionnaires/" + formName + ".xml", self);
@@ -1004,18 +1039,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			EpiDbHelper mDbHelper = new EpiDbHelper(self, formMetadata, formName);
 			mDbHelper.open();
 
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
 			return mDbHelper.SyncWithCloud(this);
 
 			//return SyncAllData(this);
 		}
 
 		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+			progressBar.setProgress(values[0]);
+		}
+
+		@Override
 		protected void onPostExecute(Integer status) {
+			super.onPostExecute(status);
+			dialog.dismiss();
 
 			int msgId = new Random().nextInt(Integer.MAX_VALUE);
 
 			if (status > 0) {
-				NotificationCompat.Builder builder = new NotificationCompat.Builder(self,"3034500")
+				NotificationCompat.Builder builder = new NotificationCompat.Builder(self, "3034500")
 						.setSmallIcon(R.drawable.ic_cloud_done)
 						.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
 						.setContentTitle(String.format(getString(R.string.cloud_sync_complete), formName))
@@ -1024,18 +1073,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				NotificationManager notificationManager = (NotificationManager) self.getSystemService(Context.NOTIFICATION_SERVICE);
 				notificationManager.notify(msgId, builder.build());
 			} else if (status != -99 && status != 0) {
-				NotificationCompat.Builder builder = new NotificationCompat.Builder(self,"3034500")
+				NotificationCompat.Builder builder = new NotificationCompat.Builder(self, "3034500")
 						.setSmallIcon(R.drawable.ic_sync_problem)
 						.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-						.setContentTitle(String.format(getString(R.string.cloud_sync_failed),  formName))
+						.setContentTitle(String.format(getString(R.string.cloud_sync_failed), formName))
 						.setContentText(getString(R.string.cloud_sync_failed_detail));
 
 				NotificationManager notificationManager = (NotificationManager) self.getSystemService(Context.NOTIFICATION_SERVICE);
 				notificationManager.notify(msgId, builder.build());
 			}
 		}
-
-
 	}
+
 
 }
