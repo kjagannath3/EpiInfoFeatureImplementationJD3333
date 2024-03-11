@@ -19,7 +19,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_margin="50dp"
 				android:contentDescription="Epi Info Analysis - touch the options menu to begin"
-		        android:src="@drawable/analysis_rect"/>"
+		        android:src="@drawable/ad_up"/>"
 		</LinearLayout>		
 		<LinearLayout 
 		    android:id="@+id/analysis_layout"
