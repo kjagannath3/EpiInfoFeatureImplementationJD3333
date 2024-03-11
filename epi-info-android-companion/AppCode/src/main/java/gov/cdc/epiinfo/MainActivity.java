@@ -21,11 +21,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-<<<<<<< HEAD
 import android.os.Handler;
-import android.preference.PreferenceManager;
-=======
->>>>>>> 397bcee40e5a5b50c87bdde389154e19a1fc6185
 import android.provider.Settings.Secure;
 import android.view.KeyEvent;
 import android.view.Menu;
