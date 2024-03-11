@@ -2233,8 +2233,9 @@ public class FormLayoutManager {
 		}
 		else if (id == 1)
 		{
-			Date now = new Date();
-			return new TimePickerDialog(container,mTimeSetListener,now.getHours(),now.getMinutes(),false);
+			Calendar now = Calendar.getInstance();
+			return new TimePickerDialog(container,mTimeSetListener, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE),false);
+
 		}
 		return null;
 	}
