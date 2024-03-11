@@ -21,6 +21,7 @@ Updated Android version for the Epi Info application developed by the Centers fo
 
 #### New Features
 * The frequency gadget of the Analyze Data tab now displays ContactID, Frequency in terms of count, and Frequency in terms of percentage. This came directly as a high priority wishlist item of the client.
+* The User Interface of StatCalc has been improved to where users can select which calculation they want to do by a dropdown menu. This declutters the original menu option page.
 
 #### Bug Fixes
 * Fixed: Identified and mapped all the compatibility issues with outdated versions.

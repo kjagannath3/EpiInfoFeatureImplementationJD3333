@@ -544,7 +544,7 @@ public class InterviewLayoutManager {
 		AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout1 = new LinearLayout(container);
-		horzLayout1.setOrientation(0);
+		horzLayout1.setOrientation(LinearLayout.HORIZONTAL);
 		RelativeLayout.LayoutParams hostParams;
 
 		if (!this.useAbsolutePos)
@@ -567,14 +567,14 @@ public class InterviewLayoutManager {
 		childParams.topMargin = 4;
 
 		LinearLayout horzLayout2 = new LinearLayout(container);
-		horzLayout2.setOrientation(0);
+		horzLayout2.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout2.setLayoutParams(childParams);
 		horzLayout2.setGravity(Gravity.CENTER);
 		horzLayout2.setBackgroundColor(0xFFFFFFFF);
 		horzLayout1.addView(horzLayout2);
 
 		LinearLayout horzLayout3 = new LinearLayout(container);
-		horzLayout3.setOrientation(0);
+		horzLayout3.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout3.setLayoutParams(childParams);
 		horzLayout3.setGravity(Gravity.CENTER);
 		horzLayout3.setBackgroundColor(0xFF000000);
@@ -605,7 +605,7 @@ public class InterviewLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
@@ -731,7 +731,7 @@ public class InterviewLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
@@ -916,7 +916,7 @@ public class InterviewLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
@@ -1207,7 +1207,7 @@ public class InterviewLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
