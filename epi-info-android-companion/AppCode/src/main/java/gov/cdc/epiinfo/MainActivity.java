@@ -24,9 +24,11 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings.Secure;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,6 +46,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -739,7 +742,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(new Intent(Intent.ACTION_VIEW, uriUrl));
                 return true;
             case 6003:
-                showDialog(44);
+				DialogFragment dialog = new PasswordDialogFragment();
+				dialog.show(getSupportFragmentManager(), "SyncPasswordDialogFragment");
+//                showDialog(44);
                 return true;
             case 6004:
                 doCloudSync();
@@ -948,8 +953,88 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		return passwordDialog;
 	}
+	public static class PasswordDialogFragment extends DialogFragment {
+//		int mNum;
+//
+//		public static PasswordDialogFragment newInstance(int num) {
+//			PasswordDialogFragment f = new PasswordDialogFragment();
+//
+//			Bundle args = new Bundle();
+//			args.putInt("num", num);
+//			f.setArguments(args);
+//
+//			return f;
+//		}
+//
+//		@Override
+//		public void onCreate(Bundle savedInstanceState) {
+//			super.onCreate(savedInstanceState);
+//			mNum = getArguments().getInt("num");
+//		}
 
-	private class AsyncDailyDownloader extends AsyncTask<Void,Double, Integer> {
+		public PasswordDialogFragment() {
+			super(R.layout.password_dialog);
+		}
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			LayoutInflater inflater = getActivity().getLayoutInflater();
+			View view = inflater.inflate(R.layout.password_dialog, null);
+			builder.setView(view);
+
+			final EditText txtPassword = (EditText) view.findViewById(R.id.txtPassword);
+			final EditText txtPasswordConfirm = (EditText) view.findViewById(R.id.txtPasswordConfirm);
+
+			Button btnSet = (Button) view.findViewById(R.id.btnSet);
+
+			btnSet.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					if (txtPassword.getText().toString().equals(txtPasswordConfirm.getText().toString()))
+					{
+						txtPasswordConfirm.setError(null);
+						((MainActivity)getActivity()).AsyncExporterPasswordBackground(txtPassword.getText().toString());
+						((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(txtPassword.getWindowToken(), 0);
+						Toast.makeText(getActivity(), getString(R.string.sync_file_started), Toast.LENGTH_LONG).show();
+						dismiss();
+					}
+					else
+					{
+						txtPasswordConfirm.setError(getActivity().getString(R.string.not_match_password));
+					}
+
+				}
+			});
+//			builder.setPositiveButton(btnSet.getText(), new DialogInterface.OnClickListener() {
+//				public void onClick(DialogInterface v, int id) {
+//
+//					if (txtPassword.getText().toString().equals(txtPasswordConfirm.getText().toString()))
+//					{
+//						txtPasswordConfirm.setError(null);
+//						((MainActivity)getActivity()).AsyncExporterPasswordBackground(txtPassword.getText().toString());
+//						((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(txtPassword.getWindowToken(), 0);
+//						Toast.makeText(getActivity(), getString(R.string.sync_file_started), Toast.LENGTH_LONG).show();
+//						dismiss();
+//					}
+//					else
+//					{
+//						txtPasswordConfirm.setError(getActivity().getString(R.string.not_match_password));
+//					}
+//
+//				}
+//			});
+
+			builder.setTitle(getString(R.string.sync_file_password));
+			builder.setCancelable(false);
+
+			return builder.create();
+		}
+	}
+
+	public class AsyncDailyDownloader extends AsyncTask<Void,Double, Integer> {
 
 		@Override
 		protected Integer doInBackground(Void... params) {
@@ -983,7 +1068,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		}
 	}
 
-	private class AsyncExporter extends AsyncTask<String,Double, Boolean>
+	public class AsyncExporter extends AsyncTask<String,Double, Boolean>
 	{
 
 		@Override
@@ -992,6 +1077,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			ExportAllData(password[0]);
 			return true;
 		}
+	}
+	private void AsyncExporterPasswordBackground(String s) {
+		new AsyncExporter().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, s);
 	}
 
 	private void doCloudSync() {
