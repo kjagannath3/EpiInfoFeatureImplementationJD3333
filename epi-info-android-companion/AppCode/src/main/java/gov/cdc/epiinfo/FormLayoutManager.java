@@ -60,6 +60,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.UUID;
 import java.util.regex.Pattern;
+import java.util.Calendar;
 
 import gov.cdc.epiinfo.etc.AudioProcessor;
 import gov.cdc.epiinfo.etc.DateButton;
@@ -2233,8 +2234,9 @@ public class FormLayoutManager {
 		}
 		else if (id == 1)
 		{
-			Date now = new Date();
-			return new TimePickerDialog(container,mTimeSetListener,now.getHours(),now.getMinutes(),false);
+			Calendar now = Calendar.getInstance();
+			return new TimePickerDialog(container,mTimeSetListener, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE),false);
+
 		}
 		return null;
 	}
