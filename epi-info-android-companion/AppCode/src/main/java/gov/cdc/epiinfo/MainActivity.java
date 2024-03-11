@@ -1037,7 +1037,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		@Override
 		protected Integer doInBackground(String... params) {
-
 			int totalItems = 100; // Total number of items to process
 			for (int i = 0; i <= totalItems; i++) {
 				publishProgress(i);
