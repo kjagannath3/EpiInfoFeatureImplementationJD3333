@@ -235,6 +235,9 @@
     <string name="build_number">Build number</string>
     <string name="file_provider_authority" translatable="false">gov.cdc.epiinfo.fileprovider</string>
     <string name="set_permissions">Set Permissions</string>
+    <string name="set_audio_permissions">Allow EpiInfo to capture Audio?</string>
+    <string name="set_video_permissions">Allow EpiInfo to utilise your Devices Camera?</string>
+    <string name="set_image_permissions">Allow EpiInfo to access your devices image media?</string>
     <string name="request_storage">Requesting permission: storage</string>
     <string name="storage_desc">Epi Info stores data collection forms and sync files on the Android file system. Please grant Epi Info permission to access the device storage.</string>
     <string name="request_location">Requesting permission: location</string>
