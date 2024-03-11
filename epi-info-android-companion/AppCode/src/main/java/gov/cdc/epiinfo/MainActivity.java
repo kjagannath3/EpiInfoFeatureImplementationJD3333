@@ -526,7 +526,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		}
 		else
 		{
-			showDialog(3);
+			DialogFragment dialog = new PasswordDialogFragment(1);
+			dialog.show(getSupportFragmentManager(), "AdminPasswordDialogFragment");
 		}
 	}
 
@@ -742,9 +743,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(new Intent(Intent.ACTION_VIEW, uriUrl));
                 return true;
             case 6003:
-				DialogFragment dialog = new PasswordDialogFragment();
+				DialogFragment dialog = new PasswordDialogFragment(2);
 				dialog.show(getSupportFragmentManager(), "SyncPasswordDialogFragment");
-//                showDialog(44);
                 return true;
             case 6004:
                 doCloudSync();
@@ -953,31 +953,64 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		return passwordDialog;
 	}
-	public static class PasswordDialogFragment extends DialogFragment {
-//		int mNum;
-//
-//		public static PasswordDialogFragment newInstance(int num) {
-//			PasswordDialogFragment f = new PasswordDialogFragment();
-//
-//			Bundle args = new Bundle();
-//			args.putInt("num", num);
-//			f.setArguments(args);
-//
-//			return f;
-//		}
-//
-//		@Override
-//		public void onCreate(Bundle savedInstanceState) {
-//			super.onCreate(savedInstanceState);
-//			mNum = getArguments().getInt("num");
-//		}
 
+	public static class PasswordDialogFragment extends DialogFragment {
+		int mNum;
+
+		public PasswordDialogFragment(int i) {
+			super(R.layout.view_dialog);
+			mNum = i;
+		}
 		public PasswordDialogFragment() {
-			super(R.layout.password_dialog);
+			new PasswordDialogFragment(1);
 		}
 
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			switch (mNum) {
+				case 1:
+					return NormPassword();
+				case 2:
+					return SyncPassword();
+				default:
+					try {
+						throw new Exception("Bad number when creating PasswordDialog");
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+			}
+		}
+		private Dialog NormPassword() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			MainActivity main = (MainActivity) getActivity();
+			LayoutInflater inflater = main.getLayoutInflater();
+			View view = inflater.inflate(R.layout.admin_password_dialog, null);
+			builder.setView(view);
+			final EditText txtPassword = (EditText) view.findViewById(R.id.txtPassword);
+
+			Button btnSet = (Button) view.findViewById(R.id.btnSet);
+			btnSet.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(main);
+					if (sharedPref.getString("admin_password", "").equals(txtPassword.getText().toString()))
+					{
+						dismiss();
+						startActivity(new Intent(main, AppSettings.class));
+					}
+					else
+					{
+						main.Alert("Invalid password");
+					}
+				}
+			});
+			builder.setTitle(getString(R.string.admin_password));
+			builder.setCancelable(true);
+			return builder.create();
+		}
+		private Dialog SyncPassword() {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			LayoutInflater inflater = getActivity().getLayoutInflater();
 			View view = inflater.inflate(R.layout.password_dialog, null);
@@ -1008,25 +1041,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 				}
 			});
-//			builder.setPositiveButton(btnSet.getText(), new DialogInterface.OnClickListener() {
-//				public void onClick(DialogInterface v, int id) {
-//
-//					if (txtPassword.getText().toString().equals(txtPasswordConfirm.getText().toString()))
-//					{
-//						txtPasswordConfirm.setError(null);
-//						((MainActivity)getActivity()).AsyncExporterPasswordBackground(txtPassword.getText().toString());
-//						((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(txtPassword.getWindowToken(), 0);
-//						Toast.makeText(getActivity(), getString(R.string.sync_file_started), Toast.LENGTH_LONG).show();
-//						dismiss();
-//					}
-//					else
-//					{
-//						txtPasswordConfirm.setError(getActivity().getString(R.string.not_match_password));
-//					}
-//
-//				}
-//			});
-
 			builder.setTitle(getString(R.string.sync_file_password));
 			builder.setCancelable(false);
 
