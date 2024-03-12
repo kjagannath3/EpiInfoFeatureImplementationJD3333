@@ -29,5 +29,13 @@
 			android:orientation="vertical"
 			android:gravity="center_horizontal"
 			android:visibility="gone"/>"
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="20dp"
+			android:text="Epi Info Analysis - touch the options menu to begin"
+			android:textSize="16sp" />
 	</LinearLayout>
 </ScrollView>
