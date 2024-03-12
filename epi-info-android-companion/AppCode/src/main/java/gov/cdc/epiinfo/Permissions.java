@@ -74,9 +74,13 @@ public class Permissions extends AppCompatActivity {
                 switch (CurrentPermission)
                 {
                     case READ_MEDIA_IMAGES:
+                        checkImageStoragePermissions();
+                        break;
                     case READ_MEDIA_VIDEO:
+                        checkVideoStoragePermissions();
+                        break;
                     case READ_MEDIA_AUDIO:
-                        checkStoragePermissions();
+                        checkAudioStoragePermissions();
                         break;
                     case GPS:
                         checkGPSPermissions();
@@ -153,21 +157,51 @@ public class Permissions extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
-    private void checkStoragePermissions() {
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void checkAudioStoragePermissions() {
         if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                android.Manifest.permission.READ_MEDIA_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.READ_MEDIA_IMAGES},
-                    READ_MEDIA_IMAGES);
+                    new String[]{android.Manifest.permission.READ_MEDIA_VIDEO},
+                    READ_MEDIA_AUDIO);
+
+        } else {
+            Intent permissions = new Intent(this, Permissions.class);
+            permissions.putExtra("PermissionType",Permissions.READ_MEDIA_AUDIO);
+            startActivity(permissions);
+            this.finish();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void checkVideoStoragePermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.READ_MEDIA_VIDEO)
+                != PackageManager.PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.READ_MEDIA_VIDEO},
                     READ_MEDIA_VIDEO);
+
+        } else {
+            Intent permissions = new Intent(this, Permissions.class);
+            permissions.putExtra("PermissionType",Permissions.READ_MEDIA_VIDEO);
+            startActivity(permissions);
+            this.finish();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void checkImageStoragePermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.READ_MEDIA_IMAGES)
+                != PackageManager.PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.READ_MEDIA_VIDEO},
-                    READ_MEDIA_AUDIO);
+                    new String[]{android.Manifest.permission.READ_MEDIA_IMAGES},
+                    READ_MEDIA_IMAGES);
 
         } else {
             Intent permissions = new Intent(this, Permissions.class);
