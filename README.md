@@ -6,7 +6,7 @@ Updated Android version for the Epi Info application developed by the Centers fo
 
 #### New Features
 * The application now has access to audio, video and photo from the device it is being run on so that users can upload specific interview material to forms. Users can enable this access.
-* When local files are being synced to the cloud, there is a sync progress bar that is displayed and shows the progress.
+* Users have the ability to export files to the cloud at any given time. There were issues with this functionality specifcially in regards to Box.
 
 #### Bug Fixes
 * Fixed: Updated the Gradle and SDK to match current standards for both in hopes that it can be packaged into an APK for the Google Play Store.
