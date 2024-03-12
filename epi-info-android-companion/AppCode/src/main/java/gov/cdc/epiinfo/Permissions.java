@@ -39,7 +39,15 @@ public class Permissions extends AppCompatActivity {
         switch (CurrentPermission)
         {
             case READ_MEDIA_IMAGES:
+                lblTitle.setText("Requesting permission: Image viewing");
+                lblMessage.setText("Epi Info can utilise the device's storage to view images. " +
+                        "Please grant permission to access the device's storage.");
+                break;
             case READ_MEDIA_VIDEO:
+                lblTitle.setText("Requesting permission: Video viewing");
+                lblMessage.setText("Epi Info can utilise the device's storage to view videos. " +
+                        "Please grant permission to access the device's storage.");
+                break;
             case READ_MEDIA_AUDIO:
                 lblTitle.setText(getString(R.string.request_storage));
                 lblMessage.setText(getString(R.string.storage_desc));
