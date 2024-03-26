@@ -1,7 +1,6 @@
 package gov.cdc.epiinfo;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -22,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings.Secure;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +29,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -207,13 +209,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			}
 			editor.putBoolean("sync_up_only", true);
 			editor.putBoolean("sample_forms", true);
-			editor.commit();
+			editor.apply();
 		}
 		if (!sharedPref.contains("reverse_order"))
 		{
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putBoolean("reverse_order", true);
-			editor.commit();
+			editor.apply();
 		}
 		if (!sharedPref.contains("cloud_service"))
 		{
@@ -221,38 +223,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			{
 				SharedPreferences.Editor editor = sharedPref.edit();
 				editor.putString("cloud_service", "Box");
-				editor.commit();
+				editor.apply();
 			}
 			else
 			{
 				SharedPreferences.Editor editor = sharedPref.edit();
 				editor.putString("cloud_service", "Microsoft Azure");
-				editor.commit();
+				editor.apply();
 			}
 		}
 		if (!sharedPref.contains("cloud_sync_save"))
 		{
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putBoolean("cloud_sync_save", true);
-			editor.commit();
+			editor.apply();
 		}
 		if (!sharedPref.contains("decimal_symbol"))
 		{
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putString("decimal_symbol", ".");
-			editor.commit();
+			editor.apply();
 		}
 		if (!sharedPref.contains("device_id"))
 		{
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putString("device_id", Secure.getString(getContentResolver(),Secure.ANDROID_ID));
-			editor.commit();
+			editor.apply();
 		}
 		if (!sharedPref.contains("azure_classic"))
 		{
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putBoolean("azure_classic", true);
-			editor.commit();
+			editor.apply();
 		}
 
 		this.setTheme(R.style.AppTheme);
@@ -262,8 +264,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 			@Override
 			public void onClick(View v) {
-
-				showDialog(1);
+				DialogFragment dialog = new ViewDialogFragment();
+				dialog.show(getSupportFragmentManager(), "ViewDialogFragment");
 			}
 		});
 		
@@ -272,8 +274,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 			@Override
 			public void onClick(View v) {
-				//LoadActivity(ViewList.class);
-				showDialog(2);
+				DialogFragment dialog = new ViewDialogAnalysisFragment();
+				dialog.show(getSupportFragmentManager(), "ViewDialogAnalysisFragment");
 			}
 		});
 
@@ -350,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             File outputDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
             File outputFile = new File(outputDirectory + "/EpiInfo/" + fileName);
 
-            if(outputFile.exists() == false)
+            if(!outputFile.exists())
             {
                 android.util.DisplayMetrics displayMetrics = new android.util.DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -371,14 +373,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 writer.close();
             }
         }
-        catch (Exception e) { }
-
+        catch (Exception ignored) { }
         try
         {
             File temp = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/EpiInfo/Temp");
             deleteDirectory(temp);
         }
-        catch (Exception ex)
+        catch (Exception ignored)
         {
 
         }
@@ -402,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             startActivity(recordList);
         }
-        else if (!AppManager.getDefaultForm().equals(""))
+        else if (!AppManager.getDefaultForm().isEmpty())
         {
             Intent recordList = new Intent(this, RecordList.class);
             recordList.putExtra("ViewName", AppManager.getDefaultForm());
@@ -437,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			if (null != obj_doc) {
 				Element feed = obj_doc.getDocumentElement();
 				String form = feed.getAttributes().getNamedItem("Form").getNodeValue().replace(".xml", "");
-				if (!form.equals("") && !form.equals(null)) {
+				if (form != null && !form.isEmpty()) {
 					AppManager.setDefaultForm(form);
 				}
 			}
@@ -476,9 +477,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			mMapView.onPause();
 		}
 		super.onPause();
-		removeDialog(1);
-		removeDialog(2);
-		removeDialog(3);
 	}
 
 	@Override
@@ -518,52 +516,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		}
 		else
 		{
-			showDialog(3);
+			DialogFragment dialog = new PasswordDialogFragment(1);
+			dialog.show(getSupportFragmentManager(), "AdminPasswordDialogFragment");
 		}
-	}
-
-	private Dialog showPasswordDialog()
-	{		
-		final Dialog passwordDialog = new Dialog(this);
-		passwordDialog.setTitle(getString(R.string.admin_password));
-		passwordDialog.setContentView(R.layout.admin_password_dialog);
-		passwordDialog.setCancelable(true);
-
-		final EditText txtPassword = passwordDialog.findViewById(R.id.txtPassword);
-
-		Button btnSet = passwordDialog.findViewById(R.id.btnSet);
-		btnSet.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(self);
-				if (sharedPref.getString("admin_password", "").equals(txtPassword.getText().toString()))
-				{
-					passwordDialog.dismiss();
-					startActivity(new Intent(self, AppSettings.class));
-				}
-				else
-				{
-					Alert("Invalid password");
-				}
-			}
-		});
-
-		return passwordDialog;
-	}
-
-	@Override
-	protected Dialog onCreateDialog(int id)
-	{
-		if (id == 1)
-			return showViewDialog();
-		else if (id == 2)
-			return showViewDialogForAnalysis();
-		else if (id == 44)
-			return showSyncPasswordDialog();
-		else
-			return showPasswordDialog();
 	}
 
 	private void Alert(String message)
@@ -582,119 +537,134 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		builder.show();
 	}
 
-	private Dialog showViewDialog()
-	{
-		if (ContextCompat.checkSelfPermission(this,
-				android.Manifest.permission.READ_MEDIA_IMAGES)
-				!= PackageManager.PERMISSION_GRANTED) {
-
-			Alert(getString(R.string.error_storage));
+	public static class ViewDialogFragment extends DialogFragment {
+		public ViewDialogFragment() {
+			super(R.layout.view_dialog);
 		}
-		else {
 
-			File basePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-			File quesPath = new File(basePath + "/EpiInfo/Questionnaires");
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			if (ContextCompat.checkSelfPermission(getActivity(),
+					android.Manifest.permission.READ_MEDIA_IMAGES)
+					!= PackageManager.PERMISSION_GRANTED) {
 
-			String[] files = quesPath.list(new ExtFilter("xml", "_"));
-			if (files != null) {
-				String[] spinnerList = new String[files.length];
-				for (int x = 0; x < files.length; x++) {
-					int idx = files[x].indexOf(".");
-					spinnerList[x] = files[x].substring(0, idx);
-				}
-
-				Dialog viewDialog = new Dialog(this);
-				viewDialog.setTitle(getString(R.string.available_forms));
-				viewDialog.setContentView(R.layout.view_dialog);
-				viewDialog.setCancelable(true);
-
-				Spinner viewSpinner = viewDialog.findViewById(R.id.cbxViewField);
-				viewSpinner.setPrompt(getString(R.string.select_form));
-
-
-				ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, spinnerList);
-				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				viewSpinner.setAdapter(adapter);
-				self = this;
-
-				final Spinner mySpinner = viewSpinner;
-				final Dialog myDialog = viewDialog;
-				final Intent recordList = new Intent(this, RecordList.class);
-
-				Button btnSet = viewDialog.findViewById(R.id.btnSet);
-				btnSet.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						recordList.putExtra("ViewName", mySpinner.getSelectedItem().toString());
-						startActivity(recordList);
-
-						myDialog.dismiss();
-					}
-				});
-
-				return viewDialog;
+				((MainActivity)getActivity()).Alert(getString(R.string.error_storage));
 			}
+			else {
+
+				File basePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+				File quesPath = new File(basePath + "/EpiInfo/Questionnaires");
+
+				String[] files = quesPath.list(new ExtFilter("xml", "_"));
+				if (files != null) {
+					String[] spinnerList = new String[files.length];
+					for (int x = 0; x < files.length; x++) {
+						int idx = files[x].indexOf(".");
+						spinnerList[x] = files[x].substring(0, idx);
+					}
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					LayoutInflater inflater = getActivity().getLayoutInflater();
+					View view = inflater.inflate(R.layout.view_dialog, null);
+					builder.setView(view);
+
+					builder.setTitle(getString(R.string.available_forms));
+					builder.setCancelable(true);
+
+					Spinner viewSpinner = view.findViewById(R.id.cbxViewField);
+					viewSpinner.setPrompt(getString(R.string.select_form));
+
+
+					ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, spinnerList);
+					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					viewSpinner.setAdapter(adapter);
+
+					final Spinner mySpinner = viewSpinner;
+					final ViewDialogFragment myDialog = this;
+					final Intent recordList = new Intent(getContext(), RecordList.class);
+
+					Button btnSet = view.findViewById(R.id.btnSet);
+					btnSet.setOnClickListener(new View.OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+
+							recordList.putExtra("ViewName", mySpinner.getSelectedItem().toString());
+							startActivity(recordList);
+
+							myDialog.dismiss();
+						}
+					});
+
+					return builder.create();
+				}
+			}
+			return null;
 		}
-		return null;
 	}
 
-	private Dialog showViewDialogForAnalysis()
-	{
-		if (ContextCompat.checkSelfPermission(this,
-				Manifest.permission.READ_MEDIA_IMAGES)
-				!= PackageManager.PERMISSION_GRANTED) {
-
-			Alert(getString(R.string.error_storage));
+	public static class ViewDialogAnalysisFragment extends DialogFragment {
+		public ViewDialogAnalysisFragment() {
+			super(R.layout.view_dialog_for_analysis);
 		}
-		else {
-			File basePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-			File quesPath = new File(basePath + "/EpiInfo/Questionnaires");
 
-			String[] files = quesPath.list(new ExtFilter("xml", null));
-			if (files != null) {
-				String[] spinnerList = new String[files.length];
-				for (int x = 0; x < files.length; x++) {
-					int idx = files[x].indexOf(".");
-					spinnerList[x] = files[x].substring(0, idx);
-				}
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			if (ContextCompat.checkSelfPermission(getActivity(),
+					Manifest.permission.READ_MEDIA_IMAGES)
+					!= PackageManager.PERMISSION_GRANTED) {
 
-				Dialog viewDialog = new Dialog(this);
-				viewDialog.setTitle(getString(R.string.available_forms));
-				viewDialog.setContentView(R.layout.view_dialog_for_analysis);
-				viewDialog.setCancelable(true);
-
-				Spinner viewSpinner = viewDialog.findViewById(R.id.cbxAnalysisViewField);
-				viewSpinner.setPrompt(getString(R.string.select_form));
-
-
-				ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, spinnerList);
-				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				viewSpinner.setAdapter(adapter);
-				self = this;
-
-				final Spinner analysisSpinner = viewSpinner;
-				final Dialog analysisDialog = viewDialog;
-				final Intent analysis = new Intent(this, AnalysisMain.class);
-
-				Button btnSet = viewDialog.findViewById(R.id.btnAnalysisSet);
-				btnSet.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						analysis.putExtra("ViewName", analysisSpinner.getSelectedItem().toString());
-						startActivity(analysis);
-
-						analysisDialog.dismiss();
-					}
-				});
-
-				return viewDialog;
+				((MainActivity)getActivity()).Alert(getString(R.string.error_storage));
 			}
+			else {
+				File basePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+				File quesPath = new File(basePath + "/EpiInfo/Questionnaires");
+
+				String[] files = quesPath.list(new ExtFilter("xml", null));
+				if (files != null) {
+					String[] spinnerList = new String[files.length];
+					for (int x = 0; x < files.length; x++) {
+						int idx = files[x].indexOf(".");
+						spinnerList[x] = files[x].substring(0, idx);
+					}
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					LayoutInflater inflater = getActivity().getLayoutInflater();
+					View view = inflater.inflate(R.layout.view_dialog_for_analysis, null);
+					builder.setView(view);
+
+					builder.setTitle(getString(R.string.available_forms));
+					builder.setCancelable(true);
+
+					Spinner viewSpinner = view.findViewById(R.id.cbxAnalysisViewField);
+					viewSpinner.setPrompt(getString(R.string.select_form));
+
+
+					ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item, spinnerList);
+					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					viewSpinner.setAdapter(adapter);
+
+					final Spinner analysisSpinner = viewSpinner;
+					final Intent analysis = new Intent(getContext(), AnalysisMain.class);
+
+					Button btnSet = view.findViewById(R.id.btnAnalysisSet);
+					btnSet.setOnClickListener(new View.OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+
+							analysis.putExtra("ViewName", analysisSpinner.getSelectedItem().toString());
+							startActivity(analysis);
+
+							dismiss();
+						}
+					});
+
+					return builder.create();
+				}
+			}
+			return null;
 		}
-		return null;
 	}
 
 	@Override
@@ -734,7 +704,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(new Intent(Intent.ACTION_VIEW, uriUrl));
                 return true;
             case 6003:
-                showDialog(44);
+				DialogFragment dialog = new PasswordDialogFragment(2);
+				dialog.show(getSupportFragmentManager(), "SyncPasswordDialogFragment");
                 return true;
             case 6004:
                 doCloudSync();
@@ -908,43 +879,101 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		}
 	}
 
-	private Dialog showSyncPasswordDialog()
-	{		
-		final Dialog passwordDialog = new Dialog(this);
-		passwordDialog.setTitle(getString(R.string.sync_file_password));
-		passwordDialog.setContentView(R.layout.password_dialog);
-		passwordDialog.setCancelable(false);
+	public static class PasswordDialogFragment extends DialogFragment {
+		int mNum;
 
-		final EditText txtPassword = passwordDialog.findViewById(R.id.txtPassword);
-		final EditText txtPasswordConfirm = passwordDialog.findViewById(R.id.txtPasswordConfirm);
+		public PasswordDialogFragment(int i) {
+			super(R.layout.view_dialog);
+			mNum = i;
+		}
+		public PasswordDialogFragment() {
+			new PasswordDialogFragment(1);
+		}
 
-		Button btnSet = passwordDialog.findViewById(R.id.btnSet);
-
-		btnSet.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				if (txtPassword.getText().toString().equals(txtPasswordConfirm.getText().toString()))
-				{
-					txtPasswordConfirm.setError(null);
-					new AsyncExporter().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, txtPassword.getText().toString());
-					((InputMethodManager)self.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(txtPassword.getWindowToken(), 0);
-					Toast.makeText(self, getString(R.string.sync_file_started), Toast.LENGTH_LONG).show();
-					passwordDialog.dismiss();
-				}
-				else
-				{
-					txtPasswordConfirm.setError(self.getString(R.string.not_match_password));
-				}
-
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			switch (mNum) {
+				case 1:
+					return NormPassword();
+				case 2:
+					return SyncPassword();
+				default:
+					try {
+						throw new Exception("Bad number when creating PasswordDialog");
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
 			}
-		});
+		}
+		private Dialog NormPassword() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			MainActivity main = (MainActivity) getActivity();
+			LayoutInflater inflater = main.getLayoutInflater();
+			View view = inflater.inflate(R.layout.admin_password_dialog, null);
+			builder.setView(view);
+			final EditText txtPassword = (EditText) view.findViewById(R.id.txtPassword);
 
-		return passwordDialog;
+			Button btnSet = (Button) view.findViewById(R.id.btnSet);
+			btnSet.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(main);
+					if (sharedPref.getString("admin_password", "").equals(txtPassword.getText().toString()))
+					{
+						dismiss();
+						startActivity(new Intent(main, AppSettings.class));
+					}
+					else
+					{
+						main.Alert("Invalid password");
+					}
+				}
+			});
+			builder.setTitle(getString(R.string.admin_password));
+			builder.setCancelable(true);
+			return builder.create();
+		}
+		private Dialog SyncPassword() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			LayoutInflater inflater = getActivity().getLayoutInflater();
+			View view = inflater.inflate(R.layout.password_dialog, null);
+			builder.setView(view);
+
+			final EditText txtPassword = (EditText) view.findViewById(R.id.txtPassword);
+			final EditText txtPasswordConfirm = (EditText) view.findViewById(R.id.txtPasswordConfirm);
+
+			Button btnSet = (Button) view.findViewById(R.id.btnSet);
+
+			btnSet.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					if (txtPassword.getText().toString().equals(txtPasswordConfirm.getText().toString()))
+					{
+						txtPasswordConfirm.setError(null);
+						((MainActivity)getActivity()).AsyncExporterPasswordBackground(txtPassword.getText().toString());
+						((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(txtPassword.getWindowToken(), 0);
+						Toast.makeText(getActivity(), getString(R.string.sync_file_started), Toast.LENGTH_LONG).show();
+						dismiss();
+					}
+					else
+					{
+						txtPasswordConfirm.setError(getActivity().getString(R.string.not_match_password));
+					}
+
+				}
+			});
+			builder.setTitle(getString(R.string.sync_file_password));
+			builder.setCancelable(false);
+
+			return builder.create();
+		}
 	}
 
-	private class AsyncDailyDownloader extends AsyncTask<Void,Double, Integer> {
+	public class AsyncDailyDownloader extends AsyncTask<Void,Double, Integer> {
 
 		@Override
 		protected Integer doInBackground(Void... params) {
@@ -978,7 +1007,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		}
 	}
 
-	private class AsyncExporter extends AsyncTask<String,Double, Boolean>
+	public class AsyncExporter extends AsyncTask<String,Double, Boolean>
 	{
 
 		@Override
@@ -987,6 +1016,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			ExportAllData(password[0]);
 			return true;
 		}
+	}
+	private void AsyncExporterPasswordBackground(String s) {
+		new AsyncExporter().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, s);
 	}
 
 	private void doCloudSync() {
@@ -1007,12 +1039,41 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	}
 
-	public class CloudSynchronizer extends AsyncTask<String, Void, Integer> {
+	public class CloudSynchronizer extends AsyncTask<String, Integer, Integer> {
 
 		private String formName;
+		private ProgressBar progressBar;
+		private AlertDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			LayoutInflater inflater = LayoutInflater.from(self);
+			View view = inflater.inflate(R.layout.progress_dialog_layout, null);
+
+			progressBar = view.findViewById(R.id.progressBar);
+			progressBar.setMax(100); // Assuming totalItems is 100
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(self);
+			builder.setView(view);
+			builder.setCancelable(false);
+			builder.setMessage("Syncing...");
+			dialog = builder.create();
+			dialog.show();
+		}
 
 		@Override
 		protected Integer doInBackground(String... params) {
+			int totalItems = 100; // Total number of items to process
+			for (int i = 0; i <= totalItems; i++) {
+				publishProgress(i);
+
+				try {
+					Thread.sleep(100); // Feel free to experiment with this value
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
 			formName = params[0];
 			FormMetadata formMetadata = new FormMetadata("EpiInfo/Questionnaires/" + formName + ".xml", self);
@@ -1024,18 +1085,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			EpiDbHelper mDbHelper = new EpiDbHelper(self, formMetadata, formName);
 			mDbHelper.open();
 
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
 			return mDbHelper.SyncWithCloud(this);
 
 			//return SyncAllData(this);
 		}
 
 		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+			progressBar.setProgress(values[0]);
+		}
+
+		@Override
 		protected void onPostExecute(Integer status) {
+			super.onPostExecute(status);
+			dialog.dismiss();
 
 			int msgId = new Random().nextInt(Integer.MAX_VALUE);
 
 			if (status > 0) {
-				NotificationCompat.Builder builder = new NotificationCompat.Builder(self,"3034500")
+				NotificationCompat.Builder builder = new NotificationCompat.Builder(self, "3034500")
 						.setSmallIcon(R.drawable.ic_cloud_done)
 						.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
 						.setContentTitle(String.format(getString(R.string.cloud_sync_complete), formName))
@@ -1044,18 +1119,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				NotificationManager notificationManager = (NotificationManager) self.getSystemService(Context.NOTIFICATION_SERVICE);
 				notificationManager.notify(msgId, builder.build());
 			} else if (status != -99 && status != 0) {
-				NotificationCompat.Builder builder = new NotificationCompat.Builder(self,"3034500")
+				NotificationCompat.Builder builder = new NotificationCompat.Builder(self, "3034500")
 						.setSmallIcon(R.drawable.ic_sync_problem)
 						.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-						.setContentTitle(String.format(getString(R.string.cloud_sync_failed),  formName))
+						.setContentTitle(String.format(getString(R.string.cloud_sync_failed), formName))
 						.setContentText(getString(R.string.cloud_sync_failed_detail));
 
 				NotificationManager notificationManager = (NotificationManager) self.getSystemService(Context.NOTIFICATION_SERVICE);
 				notificationManager.notify(msgId, builder.build());
 			}
 		}
-
-
 	}
+
 
 }

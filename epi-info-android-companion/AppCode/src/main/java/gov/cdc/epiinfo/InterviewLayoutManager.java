@@ -225,7 +225,7 @@ public class InterviewLayoutManager {
 		/*if (!this.useAbsolutePos)
 		{
 			View v1 = new View(container);
-			v1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 40));
+			v1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
 			v1.setBackgroundColor(0x00FFFFFF);
 			layout.addView(v1);
 		}*/
@@ -328,7 +328,7 @@ public class InterviewLayoutManager {
 		tv.setText(text);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			float topDp = 0;
 			if (DeviceManager.GetLength(container) > 900)
@@ -385,7 +385,7 @@ public class InterviewLayoutManager {
 		tv.setId(fieldCounter);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			float topDp = 0;
 			if (DeviceManager.GetLength(container) > 900)
@@ -464,9 +464,9 @@ public class InterviewLayoutManager {
 		if (!this.useAbsolutePos)
 		{
 			View v2 = new View(container);
-			v2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 15));
+			v2.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 15));
 			myLayout.addView(v2);
-			v1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 2));
+			v1.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 2));
 		}
 		else
 		{
@@ -561,7 +561,7 @@ public class InterviewLayoutManager {
 		horzLayout1.setGravity(Gravity.CENTER);
 		myLayout.addView(horzLayout1);
 
-		LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		LinearLayout.LayoutParams childParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		childParams.leftMargin = 4;
 		childParams.rightMargin = 4;
 		childParams.topMargin = 4;
@@ -609,7 +609,7 @@ public class InterviewLayoutManager {
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			params1.bottomMargin = 35;
 			horzLayout.setLayoutParams(params1);
 		}
@@ -735,7 +735,7 @@ public class InterviewLayoutManager {
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			params1.bottomMargin = 35;
 			horzLayout.setLayoutParams(params1);
 		}
@@ -920,7 +920,7 @@ public class InterviewLayoutManager {
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			params1.bottomMargin = 35;
 			horzLayout.setLayoutParams(params1);
 		}
@@ -1211,7 +1211,7 @@ public class InterviewLayoutManager {
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			params1.bottomMargin = 35;
 			horzLayout.setLayoutParams(params1);
 		}
@@ -1441,7 +1441,7 @@ public class InterviewLayoutManager {
 		int preferredHeight = formHeight * fieldHeight > 35 ? (int)Math.round(formHeight * fieldHeight) : 35;
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); 
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			txt.setLayoutParams(params);
 
 			if (DeviceManager.GetLength(container) > 900)
@@ -1570,7 +1570,7 @@ public class InterviewLayoutManager {
 		int preferredHeight = formHeight * fieldHeight > 35 ? (int)Math.round(formHeight * fieldHeight) : 35;
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); 
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			txt.setLayoutParams(params);
 
 			if (DeviceManager.GetLength(container) > 900)
@@ -1732,7 +1732,7 @@ public class InterviewLayoutManager {
 		cbx.setText(text);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			float dp;
 			if (DeviceManager.GetLength(container) > 900)
@@ -1743,7 +1743,7 @@ public class InterviewLayoutManager {
 			params.topMargin = (int) (fpixels + 0.5f);
 
 			cbx.setLayoutParams(params);
-			//cbx.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+			//cbx.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 			if (DeviceManager.GetLength(container) > 900)
 			{
 				cbx.setTextSize(19);
@@ -2251,13 +2251,13 @@ public class InterviewLayoutManager {
 		{
 			answer = false;
 			circle.setAlpha((float)1.0);
-			circle.setBackgroundDrawable( unselected );
+			circle.setBackground( unselected );
 		}
 		else
 		{
 			answer = true;
 			circle.setAlpha((float)0.99);
-			circle.setBackgroundDrawable( selected );
+			circle.setBackground( selected );
 		}
 
 		setDidAnswer( answer );
@@ -2278,12 +2278,12 @@ public class InterviewLayoutManager {
 
 		Drawable unselected = container.getResources().getDrawable( R.drawable.circle );
 
-		circle1.setBackgroundDrawable( unselected );
-		circle2.setBackgroundDrawable( unselected );
-		circle3.setBackgroundDrawable( unselected );
-		circle4.setBackgroundDrawable( unselected );
-		circle5.setBackgroundDrawable( unselected );
-		circle6.setBackgroundDrawable( unselected );
+		circle1.setBackground( unselected );
+		circle2.setBackground( unselected );
+		circle3.setBackground( unselected );
+		circle4.setBackground( unselected );
+		circle5.setBackground( unselected );
+		circle6.setBackground( unselected );
 
 		circle1.setAlpha((float)1.0);
 		circle2.setAlpha((float)1.0);
@@ -2321,7 +2321,7 @@ public class InterviewLayoutManager {
 		{
 			RadioButton btn = new RadioButton(container);
 			btn.setId(((fieldCounter + 1) * 10000) + i);
-			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			btn.setText(listValues.get(i));
 			/*if (useAbsolutePos && controlFontSize > 0)
@@ -2532,7 +2532,7 @@ public class InterviewLayoutManager {
 		int preferredHeight = formHeight * fieldHeight > 35 ? (int)Math.round(formHeight * fieldHeight) : 35;
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); 
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			spinner.setLayoutParams(params);
 		}
 		else
@@ -2611,7 +2611,7 @@ public class InterviewLayoutManager {
 		int preferredHeight = formHeight * fieldHeight > 35 ? (int)Math.round(formHeight * fieldHeight) : 35;
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); 
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			spinner.setLayoutParams(params);
 		}
 		else
@@ -2687,7 +2687,7 @@ public class InterviewLayoutManager {
 		btn.setText(text);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); 
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			btn.setLayoutParams(params);
 		}
 		else
@@ -2740,7 +2740,7 @@ public class InterviewLayoutManager {
 		btn.setText(text);
 		if (!this.useAbsolutePos)
 		{
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); 
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			btn.setLayoutParams(params);
 		}
 		else
@@ -2837,8 +2837,8 @@ public class InterviewLayoutManager {
 		}
 		else if (id == 1)
 		{
-			Date now = new Date();
-			return new TimePickerDialog(container,mTimeSetListener,now.getHours(),now.getMinutes(),false);
+			Calendar now = Calendar.getInstance();
+			return new TimePickerDialog(container,mTimeSetListener,now.get(Calendar.HOUR_OF_DAY),now.get(Calendar.MINUTE),false);
 		}
 		return null;
 	}
