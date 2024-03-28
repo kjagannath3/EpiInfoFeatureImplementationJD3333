@@ -18,15 +18,26 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_margin="50dp"
-				android:contentDescription="Epi Info Analysis - touch the options menu to begin"
-		        android:src="@drawable/ad_up"/>"
-		</LinearLayout>		
-		<LinearLayout 
+				android:src="@drawable/ad_up"/>"
+		</LinearLayout>
+
+		<TextView
+			android:layout_width="942dp"
+			android:layout_height="132dp"
+			android:layout_marginTop="100dp"
+			android:gravity="center"
+			android:text="To begin, click on the options menu for more Epi Info Analysis"
+			android:textSize="45sp"
+			android:textStyle="bold" />
+
+		<LinearLayout
 		    android:id="@+id/analysis_layout"
 			android:layout_height="fill_parent"
 			android:layout_width="fill_parent"
 			android:orientation="vertical"
 			android:gravity="center_horizontal"
 			android:visibility="gone"/>"
+
 	</LinearLayout>
+
 </ScrollView>

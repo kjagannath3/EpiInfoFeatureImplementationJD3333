@@ -37,5 +37,10 @@
 			android:layout_marginTop="20dp"
 			android:text="Epi Info Analysis - touch the options menu to begin"
 			android:textSize="16sp" />
+
+		<Spinner
+			android:id="@+id/optionsSpinner"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
 	</LinearLayout>
 </ScrollView>
