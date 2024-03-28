@@ -96,10 +96,11 @@ public class AnalysisMain extends AppCompatActivity {
         
         MenuItem mnuList = menu.add(0, 6,6, R.string.analysis_view_list);
         mnuList.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-        
+
+
         return true;
     }
-	
+
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
