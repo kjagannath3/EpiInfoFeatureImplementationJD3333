@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.Settings.Secure;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -1043,37 +1045,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		private String formName;
 		private ProgressBar progressBar;
-		private AlertDialog dialog;
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			LayoutInflater inflater = LayoutInflater.from(self);
-			View view = inflater.inflate(R.layout.progress_dialog_layout, null);
-
-			progressBar = view.findViewById(R.id.progressBar);
-			progressBar.setMax(100); // Assuming totalItems is 100
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(self);
-			builder.setView(view);
-			builder.setCancelable(false);
-			builder.setMessage("Syncing...");
-			dialog = builder.create();
-			dialog.show();
-		}
+		private Context context;
+		//private TextView LoadingText;
+		private int progressStatus = 0;
+		private Handler handler = new Handler();
 
 		@Override
 		protected Integer doInBackground(String... params) {
-			int totalItems = 100; // Total number of items to process
-			for (int i = 0; i <= totalItems; i++) {
-				publishProgress(i);
-
-				try {
-					Thread.sleep(100); // Feel free to experiment with this value
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
 
 			formName = params[0];
 			FormMetadata formMetadata = new FormMetadata("EpiInfo/Questionnaires/" + formName + ".xml", self);
@@ -1085,27 +1063,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			EpiDbHelper mDbHelper = new EpiDbHelper(self, formMetadata, formName);
 			mDbHelper.open();
 
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
 			return mDbHelper.SyncWithCloud(this);
 
 			//return SyncAllData(this);
 		}
 
 		@Override
-		protected void onProgressUpdate(Integer... values) {
-			super.onProgressUpdate(values);
-			progressBar.setProgress(values[0]);
-		}
-
-		@Override
 		protected void onPostExecute(Integer status) {
-			super.onPostExecute(status);
-			dialog.dismiss();
 
 			int msgId = new Random().nextInt(Integer.MAX_VALUE);
 
