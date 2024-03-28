@@ -1044,11 +1044,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	public class CloudSynchronizer extends AsyncTask<String, Integer, Integer> {
 
 		private String formName;
-		private ProgressBar progressBar;
-		private Context context;
-		//private TextView LoadingText;
-		private int progressStatus = 0;
-		private Handler handler = new Handler();
 
 		@Override
 		protected Integer doInBackground(String... params) {
