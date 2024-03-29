@@ -1044,7 +1044,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	public class CloudSynchronizer extends AsyncTask<String, Integer, Integer> {
 
 		private String formName;
+		private ProgressBar progressBar;
 
+
+		@Override
+		protected void onPreExecute() {
+			// Make the Progress Bar with properties
+			setContentView(R.layout.line_list_row);
+			progressBar = findViewById(R.id.progressBar);
+			progressBar.setMax(100);
+			progressBar.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+			progressBar.setProgress(values[0]);
+		}
 		@Override
 		protected Integer doInBackground(String... params) {
 
@@ -1053,6 +1069,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 			if (formName.startsWith("_")) {
 				formName = formName.toLowerCase();
+			}
+
+			//Progress Bar update --> Simulate heavy work
+			for (int i = 0; i < 100; i++) {
+				publishProgress(i);
+
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException ie) {
+					ie.printStackTrace();
+				}
 			}
 
 			EpiDbHelper mDbHelper = new EpiDbHelper(self, formMetadata, formName);
@@ -1069,6 +1096,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			int msgId = new Random().nextInt(Integer.MAX_VALUE);
 
 			if (status > 0) {
+
 				NotificationCompat.Builder builder = new NotificationCompat.Builder(self, "3034500")
 						.setSmallIcon(R.drawable.ic_cloud_done)
 						.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
