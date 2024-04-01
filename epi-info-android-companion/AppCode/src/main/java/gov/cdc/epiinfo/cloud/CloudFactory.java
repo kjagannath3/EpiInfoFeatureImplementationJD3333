@@ -2,7 +2,7 @@ package gov.cdc.epiinfo.cloud;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 import gov.cdc.epiinfo.EpiDbHelper;
 
