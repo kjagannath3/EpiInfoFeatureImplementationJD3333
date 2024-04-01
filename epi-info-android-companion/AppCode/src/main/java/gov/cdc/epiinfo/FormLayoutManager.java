@@ -602,7 +602,7 @@ public class FormLayoutManager {
 		});
 
 		if (!isReadOnly)
-		horzLayout.addView(btn);
+			horzLayout.addView(btn);
 
 		final EditText myTimeField = edt;
 

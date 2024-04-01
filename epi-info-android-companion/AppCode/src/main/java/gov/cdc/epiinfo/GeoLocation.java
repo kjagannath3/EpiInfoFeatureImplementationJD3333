@@ -1,18 +1,32 @@
 package gov.cdc.epiinfo;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationRequest.Builder;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.Task;
 import com.google.maps.android.PolyUtil;
 import com.google.maps.android.data.Geometry;
 import com.google.maps.android.data.MultiGeometry;
@@ -23,18 +37,19 @@ import com.google.maps.android.data.kml.KmlPolygon;
 import java.util.Calendar;
 import java.util.List;
 
-public class GeoLocation  implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
+public class GeoLocation implements LocationListener {
 
 	private static Location CurrentLocation;
 	private static String CurrentGeography;
 	private static long GeographyTime;
-	private static GoogleApiClient googleApiClient;
+	private static FusedLocationProviderClient googleApiClient;
+	private static Activity currentActivity;
 	private static LocationRequest locationRequest;
 
+	@SuppressLint("MissingPermission")
 	public static Location GetCurrentLocation() {
 		try {
-			CurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
-					googleApiClient);
+			CurrentLocation = getLastLocationIfAvailable().getResult();
 		} catch (Exception ex) {
 
 		}
@@ -50,10 +65,8 @@ public class GeoLocation  implements ConnectionCallbacks, OnConnectionFailedList
 
 	public void StopListening() {
 		try {
-			LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
-			if (googleApiClient != null) {
-				googleApiClient.disconnect();
-			}
+
+			googleApiClient.removeLocationUpdates(this);
 		} catch (Exception ex) {
 
 		}
@@ -62,48 +75,45 @@ public class GeoLocation  implements ConnectionCallbacks, OnConnectionFailedList
 	public void BeginListening(Activity activity) {
 
 		try {
+			currentActivity = activity;
 			if (googleApiClient == null) {
-				googleApiClient = new GoogleApiClient.Builder(activity)
-						.addConnectionCallbacks(this)
-						.addOnConnectionFailedListener(this)
-						.addApi(LocationServices.API)
-						.build();
+				googleApiClient = LocationServices.getFusedLocationProviderClient(activity);
+
 			}
 
 			if (locationRequest == null) {
-				locationRequest = LocationRequest.create();
-				locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-				locationRequest.setInterval(10000);
-				locationRequest.setFastestInterval(5000);
+				locationRequest = CreateLocationRequestBuilder().build();
 			}
 
-			googleApiClient.connect();
+			if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				// TODO: Consider calling
+				//    ActivityCompat#requestPermissions
+				// here to request the missing permissions, and then overriding
+				//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+				//                                          int[] grantResults)
+				// to handle the case where the user grants the permission. See the documentation
+				// for ActivityCompat#requestPermissions for more details.
+				return;
+			}
+			googleApiClient.requestLocationUpdates(locationRequest, this, Looper.getMainLooper());
+			CurrentLocation = getLastLocationIfAvailable().getResult();
 		} catch (Exception ex) {
 
 		}
 	}
 
-	@Override
-	public void onConnected(Bundle connectionHint) {
-		try {
-			LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-			CurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
-					googleApiClient);
-		} catch (Exception ex) {
-
-		}
+	private Builder CreateLocationRequestBuilder() {
+		Builder locationBuilder = new Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000);
+		locationBuilder.setMinUpdateIntervalMillis(5000);
+		return locationBuilder;
 	}
 
-	@Override
-	public void onConnectionFailed(ConnectionResult arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onConnectionSuspended(int arg0) {
-		// TODO Auto-generated method stub
-
+	@SuppressLint("MissingPermission")
+	public static Task<Location> getLastLocationIfAvailable() {
+		return GoogleApiAvailability.getInstance()
+				.checkApiAvailability(googleApiClient)
+				.onSuccessTask(unused -> googleApiClient.getLastLocation())
+				.addOnFailureListener(e -> Log.d(TAG, "Location Unavailable"));
 	}
 
 	@Override

@@ -301,7 +301,7 @@ public class RecordList extends AppCompatActivity {
 		startManagingCursor(mNotesCursor);
 		CustomListAdapter notes = new CustomListAdapter(this, R.layout.line_list_row, mNotesCursor, from, to);
 		lineListFragment.setListAdapter(notes);
-		this.setTitle(viewName.replace("_", "").toUpperCase() + " - " + String.format(getString(R.string.record_count), mNotesCursor.getCount()));
+		this.setTitle(viewName.replace("_", "").toUpperCase() + " - " + String.format(getString(R.string.record_count), Integer.toString(mNotesCursor.getCount())));
 
 		try {
 			if (shouldReturnToParent) {
