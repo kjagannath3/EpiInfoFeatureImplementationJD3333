@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -45,6 +46,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -670,6 +672,19 @@ public class RecordList extends AppCompatActivity {
 	public class CloudSynchronizer extends AsyncTask<Void,Double, Integer>
 	{
 		private int id;
+		private ProgressBar progressBar;
+
+		protected void onPreExecute() {
+			super.onPreExecute();
+			int contentViewId = (self).getWindow().getDecorView().getRootView().getId();
+			String resourceName = self.getResources().getResourceEntryName(contentViewId);
+
+			Log.d("CloudSynchronizer", "Current Content View ID: " + contentViewId);
+			Log.d("CloudSynchronizer", "Current Content View Layout Name: " + resourceName);
+			progressBar = RecordList.this.findViewById(R.id.progressBar);
+			progressBar.setVisibility(View.VISIBLE);
+			progressBar.setMax(100);
+		}
 
 		@Override
 		protected Integer doInBackground(Void... params) {
@@ -697,6 +712,8 @@ public class RecordList extends AppCompatActivity {
 		protected void onProgressUpdate(Double... values)
 		{
 			super.onProgressUpdate(values);
+			int progress = (int) (values[0] * 100); // Convert double to int for progress bar
+			progressBar.setProgress(progress);
 			ShowProgress(values[0].intValue());
 		}
 

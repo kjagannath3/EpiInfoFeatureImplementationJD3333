@@ -47,6 +47,8 @@
 			android:layout_alignParentRight="true"
 			android:layout_marginRight="10dp"
 			android:layout_below="@+id/button1"
+			android:max = "100"
+			android:visibility = "visible"
 			style="@style/Widget.AppCompat.ProgressBar.Horizontal"
 			/>
 	</RelativeLayout>

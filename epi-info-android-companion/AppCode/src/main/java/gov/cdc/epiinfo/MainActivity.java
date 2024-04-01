@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings.Secure;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1049,17 +1050,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		@Override
 		protected void onPreExecute() {
+			super.onPreExecute();
+			int contentViewId = (self).getWindow().getDecorView().getRootView().getId();
+			String resourceName = self.getResources().getResourceEntryName(contentViewId);
+
+			Log.d("CloudSynchronizer", "Current Content View ID: " + contentViewId);
+			Log.d("CloudSynchronizer", "Current Content View Layout Name: " + resourceName);
 			// Make the Progress Bar with properties
-			setContentView(R.layout.line_list_row);
-			progressBar = findViewById(R.id.progressBar);
-			progressBar.setMax(100);
-			progressBar.setVisibility(View.VISIBLE);
+			//setContentView(R.layout.line_list_row);
+
+			// View rootView = LayoutInflater.from(self).inflate(R.layout.line_list_row, null);
+			// progressBar = rootView.findViewById(R.id.progressBar);
+			progressBar = MainActivity.this.findViewById(R.id.progressBar);
+			if (progressBar != null) {
+				progressBar.setVisibility(View.VISIBLE);
+				progressBar.setMax(100);
+			} else {
+				Log.e("CloudSynchronizer", "ProgressBar is null");
+			}
 		}
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			super.onProgressUpdate(values);
-			progressBar.setProgress(values[0]);
+			Log.d("CloudSynchronizer", "Progress update: " + values[0]);
+			if (progressBar != null) {
+				progressBar.setProgress(values[0]);
+			} else {
+				Log.e("CloudSynchronizer", "ProgressBar is null");
+			}
 		}
 		@Override
 		protected Integer doInBackground(String... params) {
