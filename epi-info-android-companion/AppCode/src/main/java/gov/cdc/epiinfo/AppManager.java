@@ -2,7 +2,6 @@ package gov.cdc.epiinfo;
 
 import android.app.Activity;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.maps.android.data.kml.KmlPlacemark;
 
 import java.util.Hashtable;
@@ -108,12 +107,11 @@ public class AppManager {
 
 	public static void Closed(Activity activity)
 	{
-		GoogleApiClient.Builder b = new GoogleApiClient.Builder(activity);
 		if (activities.contains(activity))
 		{
 			activities.remove(activity);
 		}
-		if (activities.size() == 0)
+		if (activities.isEmpty())
 		{
 			if (geoLocation != null)
 			{
