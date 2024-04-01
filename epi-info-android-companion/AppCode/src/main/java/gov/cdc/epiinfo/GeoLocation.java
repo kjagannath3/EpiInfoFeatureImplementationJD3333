@@ -15,10 +15,6 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiActivity;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -43,7 +39,6 @@ public class GeoLocation implements LocationListener {
 	private static String CurrentGeography;
 	private static long GeographyTime;
 	private static FusedLocationProviderClient googleApiClient;
-	private static Activity currentActivity;
 	private static LocationRequest locationRequest;
 
 	@SuppressLint("MissingPermission")
@@ -75,7 +70,6 @@ public class GeoLocation implements LocationListener {
 	public void BeginListening(Activity activity) {
 
 		try {
-			currentActivity = activity;
 			if (googleApiClient == null) {
 				googleApiClient = LocationServices.getFusedLocationProviderClient(activity);
 
