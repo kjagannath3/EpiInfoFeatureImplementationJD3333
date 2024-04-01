@@ -62,6 +62,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Calendar;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.UUID;
 
 import gov.cdc.epiinfo.analysis.AnalysisMain;
@@ -250,8 +251,25 @@ public class RecordList extends AppCompatActivity {
 
 		if (formMetadata.DataFields.size() > 2)
 		{
+			//have some kind of pop up that displays data fields, allows user to choose 3
+			/* View chooseRecords = findViewById(R.id.add_button);
+			chooseRecords.setContentDescription("Select record");
+			chooseRecords.setOnClickListener(new View.OnClickListener() {
+				int counter = 0;
+				@Override
+				public void onClick(View v) {
+					counter++;
+					if (counter == 3) {
 
+					}
+				}
+			}); */
+			LinkedList<Field> dataFields = formMetadata.DataFields;
+			//get dataFields to get displayed
+			int numFields = dataFields.size();
+			//save indices to get each of them to use with the get
 			fieldName1 = formMetadata.DataFields.get(0).getName();
+			//fieldName1 = "tester";
 			fieldName2 = formMetadata.DataFields.get(1).getName();
 			fieldName3 = formMetadata.DataFields.get(2).getName();
 			if (fkeyGuid != null && fkeyGuid.length() > 0)
@@ -303,7 +321,7 @@ public class RecordList extends AppCompatActivity {
 		startManagingCursor(mNotesCursor);
 		CustomListAdapter notes = new CustomListAdapter(this, R.layout.line_list_row, mNotesCursor, from, to);
 		lineListFragment.setListAdapter(notes);
-		this.setTitle(viewName.replace("_", "").toUpperCase() + " - " + String.format(getString(R.string.record_count), mNotesCursor.getCount()));
+		this.setTitle(viewName.replace("_", "").toUpperCase() + " - " + String.format(getString(R.string.record_count), Integer.toString(mNotesCursor.getCount())));
 
 		try {
 			if (shouldReturnToParent) {

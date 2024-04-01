@@ -1046,6 +1046,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		private String formName;
 		private ProgressBar progressBar;
+<<<<<<< HEAD
 
 
 		@Override
@@ -1081,6 +1082,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			}
 		}
 		@Override
+=======
+		private Context context;
+		//private TextView LoadingText;
+		private int progressStatus = 0;
+		private Handler handler = new Handler();
+
+		@Override
+>>>>>>> main
 		protected Integer doInBackground(String... params) {
 
 			formName = params[0];
