@@ -10,6 +10,7 @@ Updated Android version for the Epi Info application developed by the Centers fo
 
 #### Bug Fixes
 * Fixed: Further updated the Gradle and other Gradle related depreciation issues to make sure the application hits minimum API/APK requirements for Android development.
+* Fixed: Resolved crashes related to outdated build depedencies for the full source code.
 
 
 #### Known Issues
