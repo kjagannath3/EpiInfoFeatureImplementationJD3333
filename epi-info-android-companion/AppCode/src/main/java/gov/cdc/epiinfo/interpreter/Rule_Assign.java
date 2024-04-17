@@ -3,7 +3,7 @@ package gov.cdc.epiinfo.interpreter;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.location.Location;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 import com.creativewidgetworks.goldparser.engine.Reduction;
 import com.creativewidgetworks.goldparser.engine.Token;
