@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 import androidx.core.app.NotificationCompat;
 
@@ -18,6 +18,7 @@ import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -252,11 +253,14 @@ public class SyncFileGenerator {
 									String strDate = cursor.getString(cursor.getColumnIndexOrThrow(dataFields.get(x).getName()));
 									try
 									{
+										//LocalDate ldt = LocalDate.parse(strDate);
+										Calendar ct = Calendar.getInstance();
 										Date dt = DateFormat.getDateInstance().parse(strDate);
+										ct.setTime(dt);
 										
-										int year = dt.getYear() + 1900;
-										int month = dt.getMonth() + 1;
-										int day = dt.getDate();
+										int year = ct.get(Calendar.YEAR) + 1900;
+										int month = ct.get(Calendar.MONTH) + 1;
+										int day = ct.get(Calendar.DATE);
 										
 										String strMonth;
 										if (month < 10)
@@ -509,7 +513,7 @@ public class SyncFileGenerator {
 
 		try
 		{
-			_aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding", _providerName);
+			_aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 			int iterations = RFC;
 			byte[] keyBytes= PBKDF2.deriveKey(password.getBytes(),
 					TextUtils.HexStringToByteArray(salt),
