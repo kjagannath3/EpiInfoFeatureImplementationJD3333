@@ -1042,44 +1042,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	}
 
-	public class CloudSynchronizer extends AsyncTask<String, Integer, Integer> {
+	public class CloudSynchronizer extends AsyncTask<String, Void, Integer> {
 
 		private String formName;
-		private ProgressBar progressBar;
-		private Context context;
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			int contentViewId = (self).getWindow().getDecorView().getRootView().getId();
-			String resourceName = self.getResources().getResourceEntryName(contentViewId);
-
-			Log.d("CloudSynchronizer", "Current Content View ID: " + contentViewId);
-			Log.d("CloudSynchronizer", "Current Content View Layout Name: " + resourceName);
-			// Make the Progress Bar with properties
-			//setContentView(R.layout.line_list_row);
-
-			// View rootView = LayoutInflater.from(self).inflate(R.layout.line_list_row, null);
-			// progressBar = rootView.findViewById(R.id.progressBar);
-			progressBar = MainActivity.this.findViewById(R.id.progressBar);
-			if (progressBar != null) {
-				progressBar.setVisibility(View.VISIBLE);
-				progressBar.setMax(100);
-			} else {
-				Log.e("CloudSynchronizer", "ProgressBar is null");
-			}
-		}
-
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			super.onProgressUpdate(values);
-			Log.d("CloudSynchronizer", "Progress update: " + values[0]);
-			if (progressBar != null) {
-				progressBar.setProgress(values[0]);
-			} else {
-				Log.e("CloudSynchronizer", "ProgressBar is null");
-			}
-		}
 
 		@Override
 		protected Integer doInBackground(String... params) {
@@ -1089,17 +1054,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 			if (formName.startsWith("_")) {
 				formName = formName.toLowerCase();
-			}
-
-			//Progress Bar update --> Simulate heavy work
-			for (int i = 0; i < 100; i++) {
-				publishProgress(i);
-
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException ie) {
-					ie.printStackTrace();
-				}
 			}
 
 			EpiDbHelper mDbHelper = new EpiDbHelper(self, formMetadata, formName);
@@ -1116,7 +1070,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 			int msgId = new Random().nextInt(Integer.MAX_VALUE);
 
 			if (status > 0) {
-
 				NotificationCompat.Builder builder = new NotificationCompat.Builder(self, "3034500")
 						.setSmallIcon(R.drawable.ic_cloud_done)
 						.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))

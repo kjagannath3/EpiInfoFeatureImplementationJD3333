@@ -690,19 +690,6 @@ public class RecordList extends AppCompatActivity {
 	public class CloudSynchronizer extends AsyncTask<Void,Double, Integer>
 	{
 		private int id;
-		private ProgressBar progressBar;
-
-		protected void onPreExecute() {
-			super.onPreExecute();
-			int contentViewId = (self).getWindow().getDecorView().getRootView().getId();
-			String resourceName = self.getResources().getResourceEntryName(contentViewId);
-
-			Log.d("CloudSynchronizer", "Current Content View ID: " + contentViewId);
-			Log.d("CloudSynchronizer", "Current Content View Layout Name: " + resourceName);
-			progressBar = RecordList.this.findViewById(R.id.progressBar);
-			progressBar.setVisibility(View.VISIBLE);
-			progressBar.setMax(100);
-		}
 
 		@Override
 		protected Integer doInBackground(Void... params) {
@@ -730,8 +717,6 @@ public class RecordList extends AppCompatActivity {
 		protected void onProgressUpdate(Double... values)
 		{
 			super.onProgressUpdate(values);
-			int progress = (int) (values[0] * 100); // Convert double to int for progress bar
-			progressBar.setProgress(progress);
 			ShowProgress(values[0].intValue());
 		}
 
