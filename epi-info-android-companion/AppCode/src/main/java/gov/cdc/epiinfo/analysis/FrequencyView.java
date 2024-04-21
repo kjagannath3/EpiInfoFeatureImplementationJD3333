@@ -63,9 +63,9 @@ public class FrequencyView extends RelativeLayout {
 
 		String[] stringValues = new String[formMetadata.DataFields.size() + 1];
 		stringValues[0] = context.getString(R.string.analysis_select);
-		for (int x=1;x<=formMetadata.DataFields.size();x++)
+		for (int x = 1;x <= formMetadata.DataFields.size(); x++)
 		{
-			stringValues[x] = formMetadata.DataFields.get(x-1).getName();
+			stringValues[x] = formMetadata.DataFields.get(x - 1).getName();
 		}
 
 		outputLayout = this.findViewById(R.id.freqOutput);
@@ -148,12 +148,13 @@ public class FrequencyView extends RelativeLayout {
 
 							outputLayout.addView(header);
 
+							//this gets the total count of the items in this file
 							int totalCount = 0;
 							do{
 								totalCount += c.getInt(c.getColumnIndexOrThrow("COUNT(*)"));
 							} while(c.moveToNext());
 
-							c.moveToFirst();
+							c.moveToFirst(); //reset the counter
 
 							do
 							{
@@ -171,6 +172,7 @@ public class FrequencyView extends RelativeLayout {
 								}
 								if (fieldYN)
 								{
+									//the int values represent true/false/null values
 									if (val.equals("0"))
 									{
 										val = "Missing";
@@ -236,16 +238,16 @@ public class FrequencyView extends RelativeLayout {
 								txtValue.setGravity(Gravity.LEFT);
 								row.addView(txtValue);
 
-								//int totalCount = c.getCount();
+								//totalCount was established earlier, before this part of the loop
 
 								TextView txtCount = new TextView(context);
 								txtCount.setText(count + " ");
-								//totalCount += count;
 								txtCount.setLayoutParams(cellParams);
 								txtCount.setGravity(Gravity.CENTER);
 								txtCount.setTypeface(null, Typeface.BOLD);
 								row.addView(txtCount);
 
+								//this here is what is displaying the frequency
 								TextView txtPer = new TextView(context);
 								txtPer.setText(String.format("%.2f", ((double) count/totalCount) * 100) + "%");
 								txtPer.setLayoutParams(cellParams);
@@ -262,8 +264,9 @@ public class FrequencyView extends RelativeLayout {
 				}
 				catch (Exception ex)
 				{
-					int x = 5;
+					int x = 0;
 					x++;
+					//this just catches the exception
 				}
 			}     
 
