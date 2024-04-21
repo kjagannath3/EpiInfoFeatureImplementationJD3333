@@ -600,7 +600,9 @@ public class RecordList extends AppCompatActivity {
 		}
 		catch (Exception ex)
 		{
-
+			//keeping this similar to other exception catching syntax
+			int x = 5;
+			x++;
 		}
 
 	}

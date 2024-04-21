@@ -59,7 +59,7 @@ public class FrequencyView extends RelativeLayout {
 		});
 
 		Spinner freqSpinner = this.findViewById(R.id.cbxFreqVar);
-		freqSpinner.setPrompt("Please select a field");
+		freqSpinner.setPrompt("Please select a field.");
 
 		String[] stringValues = new String[formMetadata.DataFields.size() + 1];
 		stringValues[0] = context.getString(R.string.analysis_select);
@@ -249,6 +249,7 @@ public class FrequencyView extends RelativeLayout {
 
 								//this here is what is displaying the frequency
 								TextView txtPer = new TextView(context);
+								//other statcalc operations do NOT round, so this can be changed here if needed
 								txtPer.setText(String.format("%.2f", ((double) count/totalCount) * 100) + "%");
 								txtPer.setLayoutParams(cellParams);
 								txtPer.setGravity(Gravity.RIGHT);
