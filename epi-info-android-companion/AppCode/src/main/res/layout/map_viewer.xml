@@ -24,7 +24,7 @@
             android:layout_width="328dp"
             android:layout_height="fill_parent"
             android:layout_margin="1dp"
-            android:gravity="right"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -39,14 +39,15 @@
                     android:layout_height="150dip"
                     android:layout_margin="5dip"
                     android:background="@drawable/inner_rectangle"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:layout_marginRight="5dip"
                         android:layout_marginTop="10dip"
+                        android:layout_marginRight="5dip"
+                        android:textStyle="bold"
                         android:text="@string/analysis_lat" />
 
                     <Spinner
@@ -60,8 +61,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:layout_marginRight="5dip"
                         android:layout_marginTop="10dip"
+                        android:layout_marginRight="5dip"
+                        android:textStyle="bold"
                         android:text="@string/analysis_long" />
 
                     <Spinner
