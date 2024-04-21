@@ -68,7 +68,7 @@ public class MapViewer extends RelativeLayout  implements OnMapReadyCallback {
 		}
 		this.context = (Activity)context;
 		this.mDbHelper = mDbHelper;
-		SetupMapGadget();		
+		SetupMapGadget();
 	}
 
 
@@ -83,7 +83,7 @@ public class MapViewer extends RelativeLayout  implements OnMapReadyCallback {
 		}
 		catch (Exception ex)
 		{
-
+			System.out.println("Google Map is not showing properly");
 		}
 
 		ImageView closeImage = findViewById(R.id.btnClose);
@@ -143,31 +143,31 @@ public class MapViewer extends RelativeLayout  implements OnMapReadyCallback {
 			}
 		});
 
-		ImageView transparentImageView = findViewById(R.id.transparent_image);
-
-		transparentImageView.setOnTouchListener(new View.OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				int action = event.getAction();
-				switch (action) {
-					case MotionEvent.ACTION_DOWN:
-						scrollView.requestDisallowInterceptTouchEvent(true);
-						return false;
-
-					case MotionEvent.ACTION_UP:
-						scrollView.requestDisallowInterceptTouchEvent(false);
-						return true;
-
-					case MotionEvent.ACTION_MOVE:
-						scrollView.requestDisallowInterceptTouchEvent(true);
-						return false;
-
-					default:
-						return true;
-				}
-			}
-		});
+//		ImageView transparentImageView = findViewById(R.id.transparent_image);
+//
+//		transparentImageView.setOnTouchListener(new View.OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				int action = event.getAction();
+//				switch (action) {
+//					case MotionEvent.ACTION_DOWN:
+//						scrollView.requestDisallowInterceptTouchEvent(true);
+//						return false;
+//
+//					case MotionEvent.ACTION_UP:
+//						scrollView.requestDisallowInterceptTouchEvent(false);
+//						return true;
+//
+//					case MotionEvent.ACTION_MOVE:
+//						scrollView.requestDisallowInterceptTouchEvent(true);
+//						return false;
+//
+//					default:
+//						return true;
+//				}
+//			}
+//		});
 	}
 
 
@@ -237,10 +237,10 @@ public class MapViewer extends RelativeLayout  implements OnMapReadyCallback {
 					double latitude = latArray[x];
 					double longitude = longArray[x];
 
-					minLatitude = (minLatitude > latitude) ? latitude : minLatitude;
-					maxLatitude = (maxLatitude < latitude) ? latitude : maxLatitude;                
-					minLongitude = (minLongitude > longitude) ? longitude : minLongitude;
-					maxLongitude = (maxLongitude < longitude) ? longitude : maxLongitude;		
+					minLatitude = Math.min(minLatitude, latitude);
+					maxLatitude = Math.max(maxLatitude, latitude);
+					minLongitude = Math.min(minLongitude, longitude);
+					maxLongitude = Math.max(maxLongitude, longitude);
 
 					mapMarkers[x] = new MarkerOptions() 
 					.position(new LatLng(latitude, longitude))
