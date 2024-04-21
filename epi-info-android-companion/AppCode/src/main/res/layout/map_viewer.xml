@@ -87,11 +87,11 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp" />
 
-                <ImageView
-                    android:id="@+id/transparent_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FFFFFF" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/transparent_image"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="#FFFFFF" />-->
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
