@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 	    android:layout_height="fill_parent"
 	    android:layout_width="fill_parent"
@@ -10,36 +9,50 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="5dp"
 			android:gravity="center">
+
 			<ImageView
 				android:layout_height="113dp"
 				android:layout_width="293dp"
 				android:layout_margin="10dp"
 				android:gravity="center"
 				android:src="@drawable/sc_rect"/>
+	    </LinearLayout>
 
+        <LinearLayout
+		    android:orientation="vertical"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_margin="5dp"
+		    android:gravity="center">
+
+			<Spinner
+				android:id="@+id/activitySpinner"
+				android:layout_width="313dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp"
+				android:background="@color/common_google_signin_btn_text_dark_disabled"
+				android:layout_gravity="center_horizontal"/>
 		</LinearLayout>
-		<ScrollView
+
+        <ScrollView
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:layout_marginTop="5dp">
-<LinearLayout 
-	android:orientation="vertical" 
-	android:layout_width="fill_parent" 
-	android:layout_height="wrap_content"
-	android:gravity="center_horizontal">
-		<Button 
-	    	android:id="@+id/btnOpenEpi"
-	    	android:layout_width="313dp"
-	    	android:layout_height="38dp"
-	    	android:layout_margin="10dp"
-	    	android:text="@string/statcalc_btn9"/>
 
-	<Spinner
-		android:id="@+id/activitySpinner"
-		android:layout_width="350dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="15dp"
-		android:layout_marginBottom="5dp" />
-</LinearLayout>
-	</ScrollView>
+		    <LinearLayout 
+			    android:orientation="vertical" 
+			    android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content"
+			    android:gravity="center_horizontal">
+
+				<Button 
+			    	android:id="@+id/btnOpenEpi"
+			    	android:layout_width="313dp"
+			    	android:layout_height="38dp"
+			    	android:layout_margin="10dp"
+			    	android:text="@string/statcalc_btn9"
+			    	android:background="@color/ap_transparent"/>
+			</LinearLayout>
+	    </ScrollView>
 </LinearLayout>

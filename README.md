@@ -2,11 +2,25 @@
 Updated Android version for the Epi Info application developed by the Centers for Disease Control and Prevention. Epi Info is an application used by epidimiologists worldwide to help record, track and analyze information about outbreaks. Epidimiolgists create forms, ask patients in the field to fill out their symptoms, and then use the data they collect to find trends in symptoms/disease spread. The mobile application is primarily used to analyze data, fill out forms and do different statistical calculations. 
 
 ## Release Notes
+### Version 0.4.0
+
+#### New Features
+* The application now has the ability to access geolocation. This allows users to gather the locations of those experiencing an outbreak so that they can map/track the spread. 
+* Fixed: When a user is not actively typing in a field, the keyboard will disappear off the screen. Originally the keyboard would on the screen regardless.
+
+#### Bug Fixes
+* Fixed: Further updated the Gradle and other Gradle related depreciation issues to make sure the application hits minimum API/APK requirements for Android development.
+* Fixed: Resolved crashes related to outdated build depedencies for the full source code.
+
+
+#### Known Issues
+* Packaging application into APK: Atlhough we have been able to make large improvements to the outdated codebase and depreciated files, we have run into issues with certain depreciated methods/functions being so outdated that they have been removed from newer version of Android development, and many of the solutions for that issue have also been removed from current Android development documentation. While most large files are at the minimum API/APK level, these outdated and removed functionalities are serving as a roadblock to packaging the entire application. We are working with our clients to find alternatives for certain functions that apply to this issue.
+
 ### Version 0.3.0
 
 #### New Features
 * The application now has access to audio, video and photo from the device it is being run on so that users can upload specific interview material to forms. Users can enable this access.
-* When local files are being synced to the cloud, there is a sync progress bar that is displayed and shows the progress.
+* Users have the ability to export files to the cloud at any given time. There were issues with this functionality specifcially in regards to Box.
 
 #### Bug Fixes
 * Fixed: Updated the Gradle and SDK to match current standards for both in hopes that it can be packaged into an APK for the Google Play Store.
