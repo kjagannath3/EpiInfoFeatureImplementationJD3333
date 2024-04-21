@@ -16,7 +16,8 @@
 <View android:layout_width="fill_parent" android:layout_height="2dip" android:background="#a2b9d7"/>
 <ScrollView
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+	android:layout_gravity="center">
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -132,13 +133,16 @@
             android:textSize="12dip"
             android:gravity="center"
             android:padding="3dip" />
-        <TextView
-        	android:id="@+id/txt999"
-            android:text="..."
-            android:textSize="16dip"
-		    android:textStyle="bold"
-            android:gravity="center"
-            android:padding="3dip" />
+
+		<TextView
+			android:id="@+id/txt999"
+			android:layout_width="132dp"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:padding="3dip"
+			android:text="..."
+			android:textSize="16dip"
+			android:textStyle="bold" />
     </TableRow>
     <TableRow>
         <TextView
@@ -205,7 +209,7 @@
     android:textStyle="bold"
     android:textSize="16dip"
     android:layout_column="2"
-    android:gravity="right"
+    android:gravity="center_horizontal"
     />
 </TableRow>
 <TableRow>
