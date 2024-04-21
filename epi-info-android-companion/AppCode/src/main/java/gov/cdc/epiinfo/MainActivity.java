@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings.Secure;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
+	public boolean onKeyDown(int keyCode, KeyEvent event) // Overriding onKeyDown to handle key events globally, particularly to open the options menu with the Menu key.
 	{
 		if (keyCode == KeyEvent.KEYCODE_MENU)
 		{
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	}
 
 	@Override
-	public void openOptionsMenu()
+	public void openOptionsMenu() // Method to open the options menu, adjusting the screen layout size for large screens.
 	{
 		Configuration config = getResources().getConfiguration();
 
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		}
 	}
 
-	private boolean checkPermissions()
+	private boolean checkPermissions() // Method to check if necessary permissions have been granted.
 	{
 		if (ContextCompat.checkSelfPermission(this,
 				Manifest.permission.READ_MEDIA_IMAGES)
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 				}
 			});
 
-	private void createNotificationChannel()
+	private void createNotificationChannel() // Method to create a notification channel for app notifications on Android O and above.
 	{
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
@@ -190,13 +191,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 		self = this;
 
+		// Initialize device and orientation settings.
 		DeviceManager.Init(this);
 		DeviceManager.SetOrientation(this, false);
 
+		// Setup the map view and request map synchronization.
 		mMapView = findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.getMapAsync(this);
 
+		// Initialize shared preferences and ensure necessary defaults are set.
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		if (!sharedPref.getBoolean("ei7", false) && !sharedPref.getBoolean("stacked", false) && !sharedPref.getBoolean("interview", false))
 		{
@@ -1041,14 +1045,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 	}
 
-	public class CloudSynchronizer extends AsyncTask<String, Integer, Integer> {
+	public class CloudSynchronizer extends AsyncTask<String, Void, Integer> {
 
 		private String formName;
-		private ProgressBar progressBar;
-		private Context context;
-		//private TextView LoadingText;
-		private int progressStatus = 0;
-		private Handler handler = new Handler();
 
 		@Override
 		protected Integer doInBackground(String... params) {

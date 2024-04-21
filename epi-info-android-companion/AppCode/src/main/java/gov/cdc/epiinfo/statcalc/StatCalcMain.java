@@ -32,6 +32,8 @@ public class StatCalcMain extends Activity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		activitiesSpinner.setAdapter(adapter);
 
+		//added a dropdown setting to the StatCalc so that UI is cleaner
+		//Included the spinner class to create this dropdown feature
 		activitiesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				// Avoid triggering on initial spinner load
@@ -65,6 +67,7 @@ public class StatCalcMain extends Activity {
 						default:
 							break;
 					}
+					//set the default dropdown selection to 'Population Survey'
 					activitiesSpinner.setSelection(0);
 				}
 			}
