@@ -22,6 +22,7 @@ import gov.cdc.epiinfo.R;
 import gov.cdc.epiinfo.etc.ShareProvider;
 
 
+// AnalysisMain class that extends AppCompatActivity to handle analysis features in the app.
 public class AnalysisMain extends AppCompatActivity {
 
 	private EpiDbHelper dbHelper;
@@ -49,7 +50,7 @@ public class AnalysisMain extends AppCompatActivity {
 	}
 	
 	@Override
-	public void openOptionsMenu()
+	public void openOptionsMenu() // Modifies the screen layout size for large screens when opening the options menu.
 	{
 		Configuration config = getResources().getConfiguration();
 		
@@ -78,7 +79,8 @@ public class AnalysisMain extends AppCompatActivity {
 		shareIntent.setType("text/csv");
 		shareActionProvider.setShareIntent(shareIntent);
 		MenuItemCompat.setActionProvider(mnuShare,shareActionProvider);
-        
+
+		//the menu items that populate when the options button is clicked in analyze section
         MenuItem mnuFreq = menu.add(0, 1, 1, R.string.analysis_add_freq);
         mnuFreq.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         
@@ -96,12 +98,13 @@ public class AnalysisMain extends AppCompatActivity {
         
         MenuItem mnuList = menu.add(0, 6,6, R.string.analysis_view_list);
         mnuList.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-        
+
+
         return true;
     }
-	
+
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) { // Handles action item selections and directs to the appropriate analysis methods.
 
 		PrepareCanvas();
 		
@@ -137,7 +140,7 @@ public class AnalysisMain extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 	
-	private void GoToBottom()
+	private void GoToBottom() // Scrolls to the bottom of a ScrollView, typically after adding a new analysis gadget.
 	{
 		final ScrollView scroller = findViewById(R.id.analysis_scroller);
 		scroller.setBackgroundColor(0xFFCBD1DF);
@@ -149,7 +152,7 @@ public class AnalysisMain extends AppCompatActivity {
     	});
 	}
 	
-	private void PrepareCanvas()
+	private void PrepareCanvas() // Prepares the screen for new content by making certain views visible or hidden.
 	{
 		LinearLayout layout = findViewById(R.id.analysis_layout);
 		layout.setVisibility(View.VISIBLE);

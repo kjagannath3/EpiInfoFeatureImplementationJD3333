@@ -15,7 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.provider.MediaStore;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
@@ -494,7 +494,7 @@ public class RecordEditor extends AppCompatActivity implements ICheckCodeHost
 						}
 						if (step2 != null)
 						{
-							int step3 = step2.getCheckedRadioButtonId() % 1000;
+							int step3 = (step2.getCheckedRadioButtonId()) % 1000;
 							bundle.putInt(formMetadata.Fields.get(x).getName(), step3);
 						}
 					}
@@ -580,7 +580,7 @@ public class RecordEditor extends AppCompatActivity implements ICheckCodeHost
 			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 			Uri fileName = null;
-			currentImageFileName = String.format("/sdcard/Download/EpiInfo/Images/%d.jpg", System.currentTimeMillis());
+			currentImageFileName = String.format(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis());
 
 			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT){
 				fileName = Uri.fromFile(new File(currentImageFileName));
@@ -1283,7 +1283,7 @@ public class RecordEditor extends AppCompatActivity implements ICheckCodeHost
 						}
 						else
 						{
-							control.setBackgroundDrawable(highlightedFields.get(control));
+							control.setBackground(highlightedFields.get(control));
 						}
 					}
 				}

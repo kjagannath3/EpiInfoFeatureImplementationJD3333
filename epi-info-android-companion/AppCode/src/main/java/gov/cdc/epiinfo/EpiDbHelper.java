@@ -9,8 +9,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -219,7 +220,8 @@ public class EpiDbHelper {
 		{
 			if (sendToCloud)
 			{
-				SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mCtx);
+				//Fixed depreciated line
+				SharedPreferences sharedPref = mCtx.getSharedPreferences("shared_preferences", Context.MODE_PRIVATE);
 				if (sharedPref.getBoolean("cloud_sync_save", false) && !sharedPref.getBoolean("sync_down_only", false))
 				{
 					if (!sharedPref.getString("cloud_service", "").equals("Box") || BoxClient.isAuthenticated(mCtx))

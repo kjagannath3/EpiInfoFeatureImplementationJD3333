@@ -34,7 +34,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -46,9 +46,11 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.preference.PreferenceManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -110,7 +112,7 @@ public class RecordList extends AppCompatActivity {
 
 
 	/** Called when the activity is first created. */
-	@SuppressLint("NewApi")
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,7 +130,7 @@ public class RecordList extends AppCompatActivity {
 
 		self = this;
 		setContentView(R.layout.record_list);
-		lineListFragment = (LineListFragment)getFragmentManager().findFragmentById(R.id.listFragment);
+		lineListFragment = (LineListFragment) getSupportFragmentManager().findFragmentById(R.id.listFragment);
 
 		logo = BitmapFactory.decodeResource(getResources(), R.drawable.launcher);
 
@@ -319,7 +321,7 @@ public class RecordList extends AppCompatActivity {
 		startManagingCursor(mNotesCursor);
 		CustomListAdapter notes = new CustomListAdapter(this, R.layout.line_list_row, mNotesCursor, from, to);
 		lineListFragment.setListAdapter(notes);
-		this.setTitle(viewName.replace("_", "").toUpperCase() + " - " + String.format(getString(R.string.record_count), mNotesCursor.getCount()));
+		this.setTitle(viewName.replace("_", "").toUpperCase() + " - " + String.format(getString(R.string.record_count), Integer.toString(mNotesCursor.getCount())));
 
 		try {
 			if (shouldReturnToParent) {
@@ -778,6 +780,7 @@ public class RecordList extends AppCompatActivity {
 		}
 	}
 
+	//Doesn't do anything because the OptionMenuId is never created in OnCreateOptionMenu
 	private void LoadAnalysis()
 	{
 		final Intent analysis = new Intent(this, AnalysisMain.class);

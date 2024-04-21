@@ -16,7 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -37,7 +38,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -230,7 +233,9 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 					{
 						String fieldName = formMetadata.Fields.get(x).getName();
 						double value = extras.getDouble(fieldName);
+
 						TextView txt = layout.findViewById(x);
+						txt.requestFocus();
 						if (value == Double.POSITIVE_INFINITY)
 						{
 							txt.setText("");
@@ -415,6 +420,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 			CheckCode.Execute();
 		}
 
+		View currentFocus = this.getCurrentFocus();
 		btnNext.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -429,6 +435,8 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 						currentPageIndex++;
 						layoutManager.ShowPage(formMetadata.PageName[currentPageIndex]);
 						pageStack.push(currentPageIndex);
+						InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+						imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
 						EnableDisableNavButtons();
 					}
@@ -453,6 +461,8 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 				pageStack.pop();
 				currentPageIndex = pageStack.peek();
 				layoutManager.ShowPage(formMetadata.PageName[currentPageIndex]);
+				InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
 				EnableDisableNavButtons();
 
@@ -471,8 +481,8 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 
 	private boolean selectAnswer( View circle )
 	{
-		Drawable selected = getResources().getDrawable( R.drawable.circle_selected );
-		Drawable unselected = getResources().getDrawable( R.drawable.circle );
+		Drawable selected = ResourcesCompat.getDrawable(getResources(), R.drawable.circle_selected, null);
+		Drawable unselected = ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null);
 
 		boolean answer;
 
@@ -480,13 +490,13 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 		{
 			answer = false;
 			circle.setAlpha((float)1.0);
-			circle.setBackgroundDrawable( unselected );
+			circle.setBackground( unselected );
 		}
 		else
 		{
 			answer = true;
 			circle.setAlpha((float)0.99);
-			circle.setBackgroundDrawable( selected );
+			circle.setBackground( selected );
 		}
 
 		return answer;
@@ -568,7 +578,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 		MenuItem mnuSave = menu.add(5000, 9001, 1, R.string.menu_save);
 		mnuSave.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		mnuSave.setIcon(R.drawable.content_save);
-		
+
 		MenuItem mnuLocate = menu.add(5000, 9002, 0, R.string.menu_locate);
 		mnuLocate.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		mnuLocate.setIcon(R.drawable.location);
@@ -582,7 +592,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 		mnuExit.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 
 		return true;
-	}		
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -591,7 +601,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 			this.onBackPressed();
 			return true;
 		case 9001:
-			Save(true); 
+			Save(true);
 			return true;
 		case 9002:
 			showDialog(5);
@@ -723,14 +733,14 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	public void Alert(String message)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(message)       
-		.setCancelable(false)       
-		.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() 
-		{           
-			public void onClick(DialogInterface dialog, int id) 
-			{                
-				dialog.cancel();           
-			}       
+		builder.setMessage(message)
+		.setCancelable(false)
+		.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				dialog.cancel();
+			}
 		});
 		builder.create();
 		builder.show();
@@ -773,7 +783,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
-		
+
 		if (resultCode == -500)
 		{
 			this.setResult(-500);
@@ -792,7 +802,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 		{
 			if (resultCode == RESULT_OK) {
 				new ImageProcessor().Process(currentImageView, currentImageFileName);
-			}  
+			}
 		}
 
 	}
@@ -816,7 +826,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	private Dialog showBarcodeDialog()
-	{		
+	{
 		barcodeDialog = new Dialog(this);
 		barcodeDialog.setTitle(getString(R.string.barcode_settings));
 		barcodeDialog.setContentView(R.layout.barcode_dialog);
@@ -833,7 +843,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, stringValues);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		barSpinner.setAdapter(adapter);        
+		barSpinner.setAdapter(adapter);
 		self = this;
 
 		Button btnSet = barcodeDialog.findViewById(R.id.btnSet);
@@ -846,7 +856,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 				barField = findViewById(barFieldId);
 				IntentIntegrator integrator = new IntentIntegrator(self);
 				integrator.initiateScan();
-				barcodeDialog.dismiss();				
+				barcodeDialog.dismiss();
 			}
 		});
 
@@ -941,7 +951,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	private Dialog showLocationDialog()
-	{		
+	{
 		locationDialog = new Dialog(this);
 		locationDialog.setTitle(getString(R.string.gps_settings));
 		locationDialog.setContentView(R.layout.loc_dialog);
@@ -958,7 +968,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 
 		ArrayAdapter<CharSequence> latAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, stringValues);
 		latAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		latSpinner.setAdapter(latAdapter);        
+		latSpinner.setAdapter(latAdapter);
 
 		longSpinner = locationDialog.findViewById(R.id.cbxLongitude);
 		longSpinner.setPrompt(getString(R.string.select_long_field));
@@ -999,28 +1009,28 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public boolean Register(IInterpreter enterInterpreter) 
+	public boolean Register(IInterpreter enterInterpreter)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean IsExecutionEnabled() 
+	public boolean IsExecutionEnabled()
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean IsSuppressErrorsEnabled() 
+	public boolean IsSuppressErrorsEnabled()
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean Assign(String pName, Object pValue) 
+	public boolean Assign(String pName, Object pValue)
 	{
 		//if (String.IsNullOrEmpty(pName)) return false;
 
@@ -1183,7 +1193,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public boolean Geocode(String address, String latName, String longName) 
+	public boolean Geocode(String address, String latName, String longName)
 	{
 		// TODO Auto-generated method stub
 		return false;
@@ -1191,14 +1201,14 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 
 	@Override
 	public void AutoSearch(String[] pIdentifierList, String[] pDisplayList,
-			boolean pAlwaysShow) 
+			boolean pAlwaysShow)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void Clear(String[] pIdentifierList) 
+	public void Clear(String[] pIdentifierList)
 	{
 		for(int i = 0; i < pIdentifierList.length; i++)
 		{
@@ -1209,7 +1219,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void Dialog(String pTextPrompt, String pTitleText) 
+	public void Dialog(String pTextPrompt, String pTitleText)
 	{
 		// TODO Auto-generated method stub
 
@@ -1217,7 +1227,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 
 	@Override
 	public void Dialog(String pTextPrompt, Object pVariable, String pListType,
-			String pTitleText) 
+			String pTitleText)
 	{
 		// TODO Auto-generated method stub
 
@@ -1225,14 +1235,14 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 
 	@Override
 	public boolean Dialog(String text, String caption, String mask,
-			String modifier, Object input) 
+			String modifier, Object input)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Object GetValue(String pName) 
+	public Object GetValue(String pName)
 	{
 		Object result = null;
 
@@ -1305,7 +1315,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 				try
 				{
 					DateFormat dateFormat = DateFormat.getDateInstance();
-					Date convertedDate = dateFormat.parse(dateString); 
+					Date convertedDate = dateFormat.parse(dateString);
 					result = convertedDate;
 				}
 				catch(Exception ex)
@@ -1340,7 +1350,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void GoTo(String pDestination) 
+	public void GoTo(String pDestination)
 	{
 		int pageIndex = currentPageIndex;
 
@@ -1371,7 +1381,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void Hide(String[] pNameList, boolean pIsAnExceptList) 
+	public void Hide(String[] pNameList, boolean pIsAnExceptList)
 	{
 		if(pIsAnExceptList)
 		{
@@ -1437,7 +1447,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void Highlight(String[] pNameList, boolean pIsAnExceptList) 
+	public void Highlight(String[] pNameList, boolean pIsAnExceptList)
 	{
 		if(pIsAnExceptList)
 		{
@@ -1494,7 +1504,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 						}
 						else
 						{
-							control.setBackgroundDrawable(highlightedFields.get(control));
+							control.setBackground(highlightedFields.get(control));
 						}
 					}
 				}
@@ -1504,7 +1514,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void Enable(String[] pNameList, boolean pIsAnExceptList) 
+	public void Enable(String[] pNameList, boolean pIsAnExceptList)
 	{
 		if(pIsAnExceptList)
 		{
@@ -1557,7 +1567,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void Clear(String[] pNameList, boolean pIsAnExceptList) 
+	public void Clear(String[] pNameList, boolean pIsAnExceptList)
 	{
 		try {
 
@@ -1595,7 +1605,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void Disable(String[] pNameList, boolean pIsAnExceptList) 
+	public void Disable(String[] pNameList, boolean pIsAnExceptList)
 	{
 
 		if(pIsAnExceptList)
@@ -1649,21 +1659,21 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void NewRecord() 
+	public void NewRecord()
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public int RecordCount() 
+	public int RecordCount()
 	{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void UnHide(String[] pNameList, boolean pIsAnExceptList) 
+	public void UnHide(String[] pNameList, boolean pIsAnExceptList)
 	{
 		if(pIsAnExceptList)
 		{
@@ -1762,7 +1772,7 @@ public class Interviewer extends AppCompatActivity implements ICheckCodeHost
 	}
 
 	@Override
-	public void Quit() 
+	public void Quit()
 	{
 		// TODO Auto-generated method stub
 

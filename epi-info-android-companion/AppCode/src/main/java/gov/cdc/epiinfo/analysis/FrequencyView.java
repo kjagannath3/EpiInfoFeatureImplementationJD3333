@@ -250,6 +250,7 @@ public class FrequencyView extends RelativeLayout {
 								//this here is what is displaying the frequency
 								TextView txtPer = new TextView(context);
 								//other statcalc operations do NOT round, so this can be changed here if needed
+
 								txtPer.setText(String.format("%.2f", ((double) count/totalCount) * 100) + "%");
 								txtPer.setLayoutParams(cellParams);
 								txtPer.setGravity(Gravity.RIGHT);

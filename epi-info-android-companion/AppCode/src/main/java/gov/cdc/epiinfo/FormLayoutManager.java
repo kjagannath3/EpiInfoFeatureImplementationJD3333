@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -112,7 +114,7 @@ public class FormLayoutManager {
 		density = DeviceManager.GetDensity(container);
 		//fontFactor = DeviceManager.GetCurrentFontFactor(container);
 
-		pageBackground = container.getResources().getDrawable(R.drawable.editor_rectangle);
+		pageBackground = ResourcesCompat.getDrawable(container.getResources(), R.drawable.editor_rectangle, null);
 
 		InitForm(layout);
 	}
@@ -219,7 +221,7 @@ public class FormLayoutManager {
 		if (!this.useAbsolutePos)
 		{
 			View v1 = new View(container);
-			v1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 40));
+			v1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
 			v1.setBackgroundColor(0x00FFFFFF);
 			layout.addView(v1);
 		}
@@ -234,7 +236,7 @@ public class FormLayoutManager {
 			params1.leftMargin = 5;//0;//10;
 			params1.topMargin = (formHeight * counter) + 5;//10;
 			v1.setLayoutParams(params1);
-			v1.setBackgroundDrawable(pageBackground);
+			v1.setBackground(pageBackground);
 			myLayout.addView(v1);
 		}
 	}
@@ -471,7 +473,7 @@ public class FormLayoutManager {
 		AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout1 = new LinearLayout(container);
-		horzLayout1.setOrientation(0);
+		horzLayout1.setOrientation(LinearLayout.HORIZONTAL);
 		RelativeLayout.LayoutParams hostParams;
 
 		if (!this.useAbsolutePos)
@@ -494,14 +496,14 @@ public class FormLayoutManager {
 		childParams.topMargin = 4;
 
 		LinearLayout horzLayout2 = new LinearLayout(container);
-		horzLayout2.setOrientation(0);
+		horzLayout2.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout2.setLayoutParams(childParams);
 		horzLayout2.setGravity(Gravity.CENTER);
 		horzLayout2.setBackgroundColor(0xFFFFFFFF);
 		horzLayout1.addView(horzLayout2);
 
 		LinearLayout horzLayout3 = new LinearLayout(container);
-		horzLayout3.setOrientation(0);
+		horzLayout3.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout3.setLayoutParams(childParams);
 		horzLayout3.setGravity(Gravity.CENTER);
 		horzLayout3.setBackgroundColor(0xFF000000);
@@ -532,7 +534,7 @@ public class FormLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
@@ -600,7 +602,7 @@ public class FormLayoutManager {
 		});
 
 		if (!isReadOnly)
-		horzLayout.addView(btn);
+			horzLayout.addView(btn);
 
 		final EditText myTimeField = edt;
 
@@ -659,7 +661,7 @@ public class FormLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
@@ -841,7 +843,7 @@ public class FormLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
@@ -1128,7 +1130,7 @@ public class FormLayoutManager {
 		View label = AddLabel(myLayout, prompt, promptX, promptY, pagePosition, promptFontSize);
 
 		LinearLayout horzLayout = new LinearLayout(container);
-		horzLayout.setOrientation(0);
+		horzLayout.setOrientation(LinearLayout.HORIZONTAL);
 		horzLayout.setGravity(0x10);
 		if (!this.useAbsolutePos)
 		{
@@ -2231,8 +2233,9 @@ public class FormLayoutManager {
 		}
 		else if (id == 1)
 		{
-			Date now = new Date();
-			return new TimePickerDialog(container,mTimeSetListener,now.getHours(),now.getMinutes(),false);
+			Calendar now = Calendar.getInstance();
+			return new TimePickerDialog(container,mTimeSetListener, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE),false);
+
 		}
 		return null;
 	}

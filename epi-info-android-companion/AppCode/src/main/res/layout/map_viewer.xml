@@ -24,7 +24,7 @@
             android:layout_width="328dp"
             android:layout_height="fill_parent"
             android:layout_margin="1dp"
-            android:gravity="right"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -45,9 +45,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
-                        android:layout_marginRight="5dip"
                         android:layout_marginTop="10dip"
-                        android:text="@string/analysis_lat" />
+                        android:layout_marginRight="5dip"
+                        android:text="@string/analysis_lat"
+                        android:textStyle="bold" />
 
                     <Spinner
                         android:id="@+id/latitudeField"
@@ -62,6 +63,7 @@
                         android:layout_marginLeft="10dip"
                         android:layout_marginRight="5dip"
                         android:layout_marginTop="10dip"
+                        android:textStyle="bold"
                         android:text="@string/analysis_long" />
 
                     <Spinner
@@ -89,7 +91,7 @@
                     android:id="@+id/transparent_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#00000000" />
+                    android:background="#FFFFFF" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
