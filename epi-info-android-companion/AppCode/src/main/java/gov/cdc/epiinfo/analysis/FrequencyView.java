@@ -154,7 +154,7 @@ public class FrequencyView extends RelativeLayout {
 								totalCount += c.getInt(c.getColumnIndexOrThrow("COUNT(*)"));
 							} while(c.moveToNext());
 
-							c.moveToFirst();
+							c.moveToFirst(); //reset the counter
 
 							do
 							{
@@ -172,6 +172,7 @@ public class FrequencyView extends RelativeLayout {
 								}
 								if (fieldYN)
 								{
+									//the int values represent true/false/null values
 									if (val.equals("0"))
 									{
 										val = "Missing";
@@ -237,7 +238,7 @@ public class FrequencyView extends RelativeLayout {
 								txtValue.setGravity(Gravity.LEFT);
 								row.addView(txtValue);
 
-								//totalCount was established earlier
+								//totalCount was established earlier, before this part of the loop
 
 								TextView txtCount = new TextView(context);
 								txtCount.setText(count + " ");
@@ -246,7 +247,7 @@ public class FrequencyView extends RelativeLayout {
 								txtCount.setTypeface(null, Typeface.BOLD);
 								row.addView(txtCount);
 
-								//this code here is what is displaying the frequency
+								//this here is what is displaying the frequency
 								TextView txtPer = new TextView(context);
 								txtPer.setText(String.format("%.2f", ((double) count/totalCount) * 100) + "%");
 								txtPer.setLayoutParams(cellParams);
@@ -263,8 +264,9 @@ public class FrequencyView extends RelativeLayout {
 				}
 				catch (Exception ex)
 				{
-					int x = 5;
+					int x = 0;
 					x++;
+					//this just catches the exception
 				}
 			}     
 
