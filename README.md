@@ -1,18 +1,33 @@
 # Epi Info Android Companion
 This is an updated Android version for the Epi Info application developed by the Centers for Disease Control and Prevention. Epi Info is an application used by epidimiologists worldwide to help record, track and analyze information about outbreaks. Epidimiolgists create forms, ask patients in the field to fill out their symptoms, and then use the data they collect to find trends in symptoms/disease spread. The mobile application is primarily used to analyze data, fill out forms and do different statistical calculations. 
 
+## Install Guide
+
 ## Release Notes
-### Version 0.5.0
+### Version 1.0.0
 
 #### New Features
-* The application now does (insert here)
+* No new features were added in this update
 
 #### Bug Fixes
 * Fixed: Notifictaion for SyncStatus wasn't displaying properly. This issue has been resolved now.
 * Fixed: Removed a dropdown section in Analzye Data. Analzye Data doesn't need to utilize a dropdown section and uses the 3-dots in the right corner.
+* Fixed: Geolocation tool in Analyze Data screen works again.
+* Fixed: Orientation issues found within Analyze Data and StatCalc.
+* Fixed: Miscellaneous minor depreciation fixes 
 
 #### Known Issues
-* Further depreciation issues and documentation handoff: While we tried to handle as many of the issues as we could, there are still layers of depreciated code we were not able to address. We are handing the rest of this project back to the client and we need to make sure that our documentation is as detailed as possible so the learning curve with the codebase isn't as extremne as it was when we originally started the project.
+* **Remaining Depreciation.*** While nearly all major depreciation issues are solved, unfortunately, a few remain. These include the following:
+  * RecordList, RecordEditor, Interviewer, InterviewLayoutManager, and FormLayoutManager still have elements within them that are underneath the API 21 minimum.
+  * IntentIntegrator and the package it resides in relies on much older API. This should be removed and replaced with an updated alternative.
+  * Images cannot be added to forms. This is suspected to be due to depreciation or an updated dependency that is incompatible with the current codebase.
+  * Barcode scanning does not work. This is also suspected to be due to depreciation or an updated dependency that is incompatible with the current codebase. 
+
+* **Known Bugs.**
+  * Semi-random crashing when going back to a previous screen after extended use. This may simply be an Android Studio problem and has yet to be tested on an actual device.
+
+* **Unfulfilled Functionalities**
+  * ***Progress Bar:*** Unfortunately, after hours of attempts, creating a progress bar to work with the synchronization was too complicated and confusing for the limited time we had. 
 
 ### Version 0.4.0
 
