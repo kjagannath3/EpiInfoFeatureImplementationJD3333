@@ -2,6 +2,20 @@
 This is an updated Android version for the Epi Info application developed by the Centers for Disease Control and Prevention. Epi Info is an application used by epidimiologists worldwide to help record, track and analyze information about outbreaks. Epidimiolgists create forms, ask patients in the field to fill out their symptoms, and then use the data they collect to find trends in symptoms/disease spread. The mobile application is primarily used to analyze data, fill out forms and do different statistical calculations. 
 
 ## Install Guide
+#### Prerequisites
+* Currently, this application supports a minimum SDK version of 21 and is designed to target SDK version 34. Many of the updated features and fixes support backwards compatibility to allow for Android users with older versions to access the application and its features.
+#### Dependent Libraries / Third Party Software
+* Although no dependent libraries are required, this application in practice is intended to be used in tandem with the desktop and web versions to facilitate the creation of forms and detailed analysis of collected data. Furthermore, it is recommended for users to create an account with Box Cloud services to allow for the transfer and upload of other researchers’ data.
+#### Download Instructions
+* Using the most recent version’s APK, the application should be accessible for download on the Google Play Store based on the CDC team’s deployment. Although previous versions were unavailable for download due to outdated features and depreciations, the current version is compatible with the requirements embedded in the Google Play Store settings.
+#### Build Instructions
+* Rather than providing raw source code which would require build instructions, this application should be directly available for download on the Google Play Store. Optionally, viewers of this repository can run this source code using Android Studio via an emulator device equipped with the appropriate API versions (minimum 21). For this to function properly, the user must navigate to the AppCode folder and execute from this directory.
+#### Application Installation
+* Upon downloading and installing the application from the Google Play Store, the application should become available to open in the Android device’s library. Depending on the use case, users may customize their local files to determine the storage location of remotely downloaded files. It also must be reiterated that the cloud synchronization features require an active Box Cloud account from which such files can be retrieved.
+#### Run Instructions
+* Running the application simply requires an installation from the Google Play Store, upon which it will be accessible on the user’s Android device. Alternatively, the source code can be directly experimented with through Android Studio as described.
+#### Troubleshooting and Common Errors
+* If users attempting to access the application encounter errors relating to retrieving or executing from the Google Play Store download, it is suggested to refer to the minimum and compile SDK versions previously listed to ensure that they are not attempting to run the app using unsupported versions. Otherwise, the end-user should not encounter errors pertaining to installation.
 
 ## Release Notes
 ### Version 1.0.0
